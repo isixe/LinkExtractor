@@ -1,70 +1,62 @@
 ---
-import '../styles/global.css'
-const title = 'Link Extractor — 免费在线链接提取工具'
-const description = '免费在线链接提取工具。从文本或文件中批量提取 URL，验证链接有效性，支持 TXT/JSON/CSV 导出。纯客户端运行，数据不上传服务器。'
-const url = 'https://link-extractor.pages.dev'
+import "../styles/global.css";
+const title = "Link Extractor — 免费在线链接提取工具";
+const description =
+	"免费在线链接提取工具。从文本或文件中批量提取 URL，验证链接有效性，支持 TXT/JSON/CSV 导出。纯客户端运行，数据不上传服务器。";
+const url = "https://link-extractor.pages.dev";
 ---
 
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={url} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${url}/og-image.png`} />
-    <meta property="og:locale" content="zh_CN" />
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={`${url}/og-image.png`} />
+		<meta property="og:locale" content="zh_CN" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
 
-    <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Link Extractor",
-      "description": description,
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "browserRequirements": "Requires JavaScript",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    })} />
+		<!-- Structured Data -->
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "WebApplication",
+				name: "Link Extractor",
+				description: description,
+				applicationCategory: "UtilityApplication",
+				operatingSystem: "Web",
+				browserRequirements: "Requires JavaScript",
+				offers: {
+					"@type": "Offer",
+					price: "0",
+					priceCurrency: "USD",
+				},
+			})}
+		/>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <style>
-      :root {
-        --background: #f7fee7;
-        --foreground: #1a2e05;
-        --primary: #84cc16;
-        --primary-dark: #65a30d;
-        --primary-light: #d9f99d;
-        --accent: #4d7c0f;
-        --muted: #ecfccb;
-        --muted-foreground: #365314;
-        --border: #365314;
-        --card: #FFFFFF;
-        --success: #22c55e;
-        --warning: #eab308;
-        --error: #ef4444;
-      }
-    </style>
-  </head>
-  <body class="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased" style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif;">
-    <slot />
-  </body>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body
+		class="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased"
+		style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif;">
+		<slot />
+	</body>
 </html>

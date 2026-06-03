@@ -27,7 +27,7 @@ export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
   const Icon = cfg.icon
 
   return (
-    <div className={`rounded-2xl border border-[var(--primary-light)] bg-white p-4 shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 ${cfg.bg}`}>
+    <div className={`rounded-2xl border border-[#84cc16]/40 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 ${cfg.bg}`}>
       <div className="flex items-start gap-3">
         <div className={`mt-0.5 flex-shrink-0 ${cfg.color}`}>
           <Icon />

@@ -39,10 +39,10 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
 
   return (
     <div
-      className={`cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-all duration-200
+      className={`cursor-pointer rounded-2xl border border-dashed border-[#84cc16]/60 p-8 text-center transition-all duration-200
         ${dragOver
-          ? 'border-[var(--primary)] bg-[var(--primary-light)] shadow-[0_4px_20px_-4px_rgba(132,204,22,0.3)]'
-          : 'border-[var(--primary-light)] bg-white shadow-md hover:shadow-lg hover:-translate-y-0.5'
+          ? 'border-[#84cc16] bg-[#84cc16]/10 shadow-[0_2px_12px_-4px_rgba(132,204,22,0.2)]'
+          : 'bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5'
         }`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}

@@ -31,7 +31,7 @@ export function FilterBar({ current, onChange, counts }: FilterBarProps) {
           className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-200
             ${current === f.key
               ? 'bg-[var(--primary)] text-white shadow-md'
-              : 'bg-white text-[var(--border)] border border-[var(--primary-light)] hover:bg-[var(--muted)] active:scale-[0.98]'
+              : 'bg-white text-[#84cc16]/80 border border-[#84cc16]/40 hover:bg-[var(--muted)] active:scale-[0.98]'
             }`}
         >
           <span className="mr-1.5">{f.label}</span>
