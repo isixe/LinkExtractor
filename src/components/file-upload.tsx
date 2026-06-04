@@ -1,4 +1,5 @@
 import { useState, useRef, type ChangeEvent, type DragEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { IconUpload } from './icons'
 import { isSupportedFile, readFileAsText } from '../lib/link-utils'
 
@@ -7,6 +8,7 @@ interface FileUploadTabProps {
 }
 
 export function FileUploadTab({ onExtract }: FileUploadTabProps) {
+  const { t } = useTranslation()
   const [dragOver, setDragOver] = useState(false)
   const [fileName, setFileName] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -59,11 +61,11 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
       <IconUpload className="mx-auto mb-3 text-[var(--primary)]" />
       <p className="text-sm font-semibold text-[var(--border)]">
         {fileName
-          ? `已选择: ${fileName}，正在提取链接...`
-          : '拖拽文件到此处，或点击上传'}
+          ? t('input.file_selected', { fileName })
+          : t('input.file_drag_hint')}
       </p>
       <p className="mt-1 text-xs text-[var(--muted-foreground)]">
-        支持 TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX
+        {t('input.file_formats')}
       </p>
     </div>
   )

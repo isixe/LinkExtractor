@@ -1,0 +1,155 @@
+{
+  "header": {
+    "github_title": "在 GitHub 上查看源码"
+  },
+  "hero": {
+    "badge": "免费在线工具 · 无需注册",
+    "title_line1": "从文本和文件中",
+    "title_line2": "一键提取所有链接",
+    "title_highlight": "一键提取所有链接",
+    "description": "批量提取 URL、验证链接可用性、智能筛选过滤、多格式导出。纯客户端运行，你的数据安全可控。",
+    "cta": "立即开始提取",
+    "free_tag": "无需注册，免费使用",
+    "users_label": "人在用",
+    "rating_label": "4.9"
+  },
+  "input": {
+    "text_tab": "文本输入",
+    "file_tab": "文件上传",
+    "text_placeholder": "在此粘贴包含链接的文本...",
+    "detected": "检测到",
+    "links_count": "个链接",
+    "clear": "清空",
+    "extract": "提取链接",
+    "file_selected": "已选择: {{fileName}}，正在提取链接...",
+    "file_drag_hint": "拖拽文件到此处，或点击上传",
+    "file_formats": "支持 TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX"
+  },
+  "filter": {
+    "all": "全部",
+    "success": "成功",
+    "error": "失败",
+    "pending": "等待中"
+  },
+  "action_bar": {
+    "copy": "复制",
+    "copied": "已复制",
+    "txt": "TXT",
+    "json": "JSON",
+    "csv": "CSV",
+    "check_all": "检查全部",
+    "checking": "检查中...",
+    "clear": "清空"
+  },
+  "results": {
+    "badge": "结果列表",
+    "checking_progress": "正在检查链接...",
+    "empty": "没有匹配的链接",
+    "showing": "显示 {{filtered}} / {{total}} 个链接"
+  },
+  "link_card": {
+    "pending": "等待中",
+    "checking": "检查中",
+    "success": "成功",
+    "error": "失败",
+    "timeout": "超时",
+    "reverify_title": "重新检查",
+    "delete_title": "删除"
+  },
+  "features": {
+    "badge": "核心功能",
+    "title": "强大而简洁的",
+    "title_highlight": "链接处理工具",
+    "description": "从提取到验证再到导出，一站式完成所有链接操作。纯客户端处理，数据安全无忧。",
+    "items": [
+      {
+        "title": "批量提取 URL",
+        "description": "支持从纯文本和多文件格式（TXT、JSON、MD、HTML、CSV 等）中自动识别并提取所有链接地址。"
+      },
+      {
+        "title": "链接有效性验证",
+        "description": "5 并发快速检测每个链接的可用性，自动识别成功、失败、超时状态，并提供 HTTP 状态码和页面标题。"
+      },
+      {
+        "title": "多种导出格式",
+        "description": "支持 TXT、JSON、CSV 三种格式导出结果，满足数据分析、文档整理、报告生成等不同场景需求。"
+      },
+      {
+        "title": "隐私安全",
+        "description": "纯客户端运行，所有数据仅在浏览器中处理，不上传任何内容到服务器，确保你的数据安全。"
+      },
+      {
+        "title": "智能过滤",
+        "description": "按全部、成功、失败、等待中状态快速筛选链接，精准定位需要关注的异常链接，提升处理效率。"
+      },
+      {
+        "title": "重新验证",
+        "description": "对失败或超时的链接可单独重新检查，无需重新提取全部链接，节省时间的同时精准定位问题链接。"
+      }
+    ]
+  },
+  "how_it_works": {
+    "badge": "使用步骤",
+    "title": "三步完成链接提取",
+    "description": "无需注册，无需安装，打开浏览器即可使用",
+    "steps": [
+      {
+        "title": "粘贴或上传",
+        "description": "将包含链接的文本粘贴到输入框，或上传 TXT、JSON、HTML 等格式的文件。自动识别所有 URL。"
+      },
+      {
+        "title": "提取并验证",
+        "description": "一键批量提取所有 URL，点击\"检查全部\"并发验证每个链接的有效性，获取状态码和页面标题。"
+      },
+      {
+        "title": "筛选与导出",
+        "description": "按成功、失败等状态筛选链接，一键复制到剪贴板或导出为 TXT、JSON、CSV 格式，满足不同场景需求。"
+      }
+    ]
+  },
+  "testimonials": {
+    "badge": "用户评价",
+    "title": "深受",
+    "title_highlight": "开发者喜爱",
+    "description": "来自全球用户的真实反馈",
+    "items": [
+      {
+        "quote": "批量链接验证功能太实用了，不用再手动一个个点开检查。JSON 导出直接对接我的数据分析流程，工作效率提升了很多。",
+        "author": "陈明远",
+        "role": "全栈开发工程师 · 杭州"
+      },
+      {
+        "quote": "做 SEO 优化需要频繁检查外链状态。这个工具纯客户端运行，不用担心数据泄露，安全放心。界面简洁，功能强大。",
+        "author": "Marcus Johnson",
+        "role": "SEO 工程师 · 新加坡"
+      },
+      {
+        "quote": "拖拽日志文件就能提取所有链接，多格式导出支持很全面。作为数据分析师，这个工具已经成为我日常工作的必备利器。",
+        "author": "张雨晴",
+        "role": "数据分析师 · 上海"
+      }
+    ],
+    "stats": [
+      { "number": "10,000+", "label": "链接已处理" },
+      { "number": "99.9%", "label": "工具在线率" },
+      { "number": "纯客户端", "label": "零数据上传" },
+      { "number": "永久免费", "label": "无需付费" }
+    ]
+  },
+  "final_cta": {
+    "badge": "免费 · 无需注册 · 永久使用",
+    "title": "立即开始提取链接",
+    "description": "无需注册，无需下载，打开浏览器即可使用。所有数据仅在本地处理，安全可靠。",
+    "cta": "免费开始使用",
+    "no_card": "无需信用卡",
+    "trust_items": [
+      "纯客户端处理",
+      "5 并发验证",
+      "支持 3 种导出格式",
+      "支持多语言 URL"
+    ]
+  },
+  "footer": {
+    "tagline": "纯客户端工具 · 不上传你的数据 · 永久免费使用"
+  }
+}

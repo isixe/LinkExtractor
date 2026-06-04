@@ -1,0 +1,155 @@
+{
+  "header": {
+    "github_title": "View source on GitHub"
+  },
+  "hero": {
+    "badge": "Free Online Tool · No Registration",
+    "title_line1": "Extract All Links",
+    "title_line2": "from Text and Files",
+    "title_highlight": "in One Click",
+    "description": "Batch extract URLs, verify link availability, smart filter, multi-format export. Runs entirely on the client — your data stays secure.",
+    "cta": "Start Extracting",
+    "free_tag": "Free, no registration required",
+    "users_label": "people using",
+    "rating_label": "4.9"
+  },
+  "input": {
+    "text_tab": "Text Input",
+    "file_tab": "File Upload",
+    "text_placeholder": "Paste text containing links here...",
+    "detected": "Detected",
+    "links_count": "links",
+    "clear": "Clear",
+    "extract": "Extract Links",
+    "file_selected": "Selected: {{fileName}}, extracting links...",
+    "file_drag_hint": "Drag & drop a file, or click to upload",
+    "file_formats": "Supports TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX"
+  },
+  "filter": {
+    "all": "All",
+    "success": "Valid",
+    "error": "Invalid",
+    "pending": "Pending"
+  },
+  "action_bar": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "txt": "TXT",
+    "json": "JSON",
+    "csv": "CSV",
+    "check_all": "Check All",
+    "checking": "Checking...",
+    "clear": "Clear"
+  },
+  "results": {
+    "badge": "Results",
+    "checking_progress": "Checking links...",
+    "empty": "No matching links",
+    "showing": "Showing {{filtered}} / {{total}} links"
+  },
+  "link_card": {
+    "pending": "Pending",
+    "checking": "Checking",
+    "success": "Valid",
+    "error": "Invalid",
+    "timeout": "Timeout",
+    "reverify_title": "Re-check",
+    "delete_title": "Delete"
+  },
+  "features": {
+    "badge": "Core Features",
+    "title": "Powerful & Simple",
+    "title_highlight": "Link Processing Tool",
+    "description": "From extraction to verification to export — all link operations in one place. Fully client-side, your data stays safe.",
+    "items": [
+      {
+        "title": "Batch URL Extraction",
+        "description": "Automatically identify and extract all links from plain text and multiple file formats (TXT, JSON, MD, HTML, CSV, etc.)."
+      },
+      {
+        "title": "Link Validation",
+        "description": "Concurrently check each link's availability with 5 threads, auto-detect success, failure, timeout status with HTTP status codes and page titles."
+      },
+      {
+        "title": "Multiple Export Formats",
+        "description": "Export results in TXT, JSON, or CSV format for data analysis, documentation, reporting and other scenarios."
+      },
+      {
+        "title": "Privacy First",
+        "description": "Runs entirely on the client — all data is processed in your browser, nothing is uploaded to any server."
+      },
+      {
+        "title": "Smart Filtering",
+        "description": "Quickly filter links by status: all, valid, invalid, pending. Pinpoint problematic links efficiently."
+      },
+      {
+        "title": "Re-verification",
+        "description": "Re-check individual failed or timed-out links without re-extracting everything — save time while pinpointing issues."
+      }
+    ]
+  },
+  "how_it_works": {
+    "badge": "How It Works",
+    "title": "Three Steps to Extract Links",
+    "description": "No registration, no installation — just open your browser and go",
+    "steps": [
+      {
+        "title": "Paste or Upload",
+        "description": "Paste text containing links or upload files in TXT, JSON, HTML, or other formats. All URLs are auto-detected."
+      },
+      {
+        "title": "Extract & Verify",
+        "description": "Batch extract all URLs in one click. Click \"Check All\" to verify link availability with status codes and page titles."
+      },
+      {
+        "title": "Filter & Export",
+        "description": "Filter links by status, copy to clipboard, or export as TXT, JSON, or CSV to suit your needs."
+      }
+    ]
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "Loved by",
+    "title_highlight": "Developers",
+    "description": "Real feedback from users worldwide",
+    "items": [
+      {
+        "quote": "The batch link verification feature is incredibly useful — no more manually checking each link. JSON export directly feeds into my data analysis workflow. Work efficiency has improved significantly.",
+        "author": "Chen Mingyuan",
+        "role": "Full-stack Developer · Hangzhou"
+      },
+      {
+        "quote": "I frequently check outbound links for SEO optimization. This tool runs entirely client-side, so no data leakage concerns. Clean UI, powerful features.",
+        "author": "Marcus Johnson",
+        "role": "SEO Engineer · Singapore"
+      },
+      {
+        "quote": "Drag and drop log files to extract all links, with comprehensive multi-format export. As a data analyst, this tool has become essential in my daily workflow.",
+        "author": "Zhang Yuqing",
+        "role": "Data Analyst · Shanghai"
+      }
+    ],
+    "stats": [
+      { "number": "10,000+", "label": "Links Processed" },
+      { "number": "99.9%", "label": "Uptime" },
+      { "number": "Client-side", "label": "Zero Data Upload" },
+      { "number": "Forever Free", "label": "No Payment Needed" }
+    ]
+  },
+  "final_cta": {
+    "badge": "Free · No Registration · Forever",
+    "title": "Start Extracting Links Now",
+    "description": "No registration, no download — just open your browser. All data processed locally, safe and reliable.",
+    "cta": "Get Started Free",
+    "no_card": "No credit card required",
+    "trust_items": [
+      "Client-side Processing",
+      "5 Concurrent Checks",
+      "3 Export Formats",
+      "Multi-language URL Support"
+    ]
+  },
+  "footer": {
+    "tagline": "Client-side tool · No data upload · Free forever"
+  }
+}

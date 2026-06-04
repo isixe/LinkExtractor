@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Button } from './button'
 
 interface TextInputProps {
@@ -7,6 +8,7 @@ interface TextInputProps {
 }
 
 export function TextInput({ onExtract, linkCount }: TextInputProps) {
+  const { t } = useTranslation()
   const [text, setText] = useState('')
 
   const handleExtract = () => {
@@ -24,18 +26,18 @@ export function TextInput({ onExtract, linkCount }: TextInputProps) {
       <textarea
         value={text}
         onChange={e => setText(e.target.value)}
-        placeholder="在此粘贴包含链接的文本..."
+        placeholder={t('input.text_placeholder')}
         className="w-full h-32 resize-y rounded-xl border border-[#84cc16]/60 bg-[var(--card)] px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/50 transition-all duration-200 focus:outline-none focus:border-[#84cc16] focus:ring-1 focus:ring-[#84cc16]/10"
       />
 
       <div className="flex items-center justify-between">
         <span className="text-sm font-semibold text-[var(--border)]">
-          检测到 <span className="text-[var(--primary)]">{linkCount}</span> 个链接
+          {t('input.detected')} <span className="text-[var(--primary)]">{linkCount}</span> {t('input.links_count')}
         </span>
         <div className="flex gap-2">
           {text && (
             <Button variant="ghost" size="sm" onClick={handleClear}>
-              清空
+              {t('input.clear')}
             </Button>
           )}
           <Button
@@ -43,7 +45,7 @@ export function TextInput({ onExtract, linkCount }: TextInputProps) {
             onClick={handleExtract}
             disabled={!text.trim()}
           >
-            提取链接
+            {t('input.extract')}
           </Button>
         </div>
       </div>

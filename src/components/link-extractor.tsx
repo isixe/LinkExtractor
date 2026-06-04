@@ -1,4 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import "../lib/i18n";
 import type { LinkInfo, FilterType } from "../lib/types";
 import { extractLinks, createLinkInfo, checkAllLinks, checkSingleLink, filterLinks } from "../lib/link-utils";
 import type { CheckResult } from "../lib/types";
@@ -22,7 +24,18 @@ import {
 } from "./icons";
 
 export function LinkExtractor() {
+	const { t } = useTranslation()
 	const [links, setLinks] = useState<LinkInfo[]>([]);
+	const rawFeaturesItems = t('features.items', { returnObjects: true })
+	const rawHowItWorksSteps = t('how_it_works.steps', { returnObjects: true })
+	const rawTestimonialItems = t('testimonials.items', { returnObjects: true })
+	const rawTestimonialStats = t('testimonials.stats', { returnObjects: true })
+	const rawFinalCtaTrustItems = t('final_cta.trust_items', { returnObjects: true })
+	const featuresItems = (Array.isArray(rawFeaturesItems) ? rawFeaturesItems : []) as { title: string; description: string }[]
+	const howItWorksSteps = (Array.isArray(rawHowItWorksSteps) ? rawHowItWorksSteps : []) as { title: string; description: string }[]
+	const testimonialItems = (Array.isArray(rawTestimonialItems) ? rawTestimonialItems : []) as { quote: string; author: string; role: string }[]
+	const testimonialStats = (Array.isArray(rawTestimonialStats) ? rawTestimonialStats : []) as { number: string; label: string }[]
+	const finalCtaTrustItems = (Array.isArray(rawFinalCtaTrustItems) ? rawFinalCtaTrustItems : []) as string[]
 	const [inputTab, setInputTab] = useState<"file" | "text">("text");
 	const [filter, setFilter] = useState<FilterType>("all");
 	const [checking, setChecking] = useState(false);
@@ -156,18 +169,18 @@ export function LinkExtractor() {
 						<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[var(--primary-light)] px-4 py-1.5">
 							<span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
 							<span className="text-xs font-semibold dark:text-[var(--border)] text-white">
-								免费在线工具 · 无需注册
+								{t('hero.badge')}
 							</span>
 						</div>
 
 						<h1 className="text-5xl font-extrabold leading-tight tracking-tight sm:text-7xl lg:text-6xl">
-							从文本和文件中
+							{t('hero.title_line1')}
 							<br />
-							<span className="text-[var(--primary)]">一键提取所有链接</span>
+							<span className="text-[var(--primary)]">{t('hero.title_highlight')}</span>
 						</h1>
 
 						<p className="mx-auto mt-5 max-w-xl text-lg font-medium leading-relaxed text-[var(--foreground)] lg:mx-0">
-							批量提取 URL、验证链接可用性、智能筛选过滤、多格式导出。纯客户端运行，你的数据安全可控。
+							{t('hero.description')}
 						</p>
 
 						{/* CTA buttons */}
@@ -176,12 +189,12 @@ export function LinkExtractor() {
 								onClick={() => document.getElementById("input-card")?.scrollIntoView({ behavior: "smooth" })}
 								className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-8 py-3.5 text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(132,204,22,0.39)] transition-all duration-200 hover:bg-[var(--primary-dark)] hover:shadow-[0_6px_20px_-4px_rgba(132,204,22,0.5)] active:scale-[0.98]">
 								<IconLink className="h-5 w-5" />
-								立即开始提取
+								{t('hero.cta')}
 							</button>
 							<span className="hidden text-sm text-[var(--muted-foreground)]/30 sm:inline">·</span>
 							<div className="flex items-center gap-2 text-sm font-semibold text-[var(--muted-foreground)]">
 								<IconCheckCircle className="h-4 w-4 text-[var(--primary)]" />
-								无需注册，免费使用
+								{t('hero.free_tag')}
 							</div>
 						</div>
 
@@ -197,12 +210,12 @@ export function LinkExtractor() {
 								))}
 							</div>
 							<div className="text-left text-sm font-semibold text-[var(--muted-foreground)]">
-								<span className="text-[var(--foreground)]">100+</span> 人在用
+								<span className="text-[var(--foreground)]">100+</span> {t('hero.users_label')}
 								<div className="flex items-center gap-1 text-xs text-[var(--primary)]">
 									{[...Array(5)].map((_, i) => (
 										<IconStar key={i} className="h-3 w-3" />
 									))}
-									<span className="ml-1 text-[var(--muted-foreground)]/60">4.9</span>
+									<span className="ml-1 text-[var(--muted-foreground)]/60">{t('hero.rating_label')}</span>
 								</div>
 							</div>
 						</div>
@@ -238,7 +251,7 @@ export function LinkExtractor() {
 									<div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--primary)]">
 										<IconLink className="h-4 w-4 text-white" strokeWidth={2} />
 									</div>
-									<span className="text-sm font-bold text-[var(--foreground)]">链接提取结果</span>
+									<span className="text-sm font-bold text-[var(--foreground)]">{t('results.badge')}</span>
 								</div>
 								<div className="space-y-2">
 									{[
@@ -261,8 +274,8 @@ export function LinkExtractor() {
 										<IconDownload className="h-4 w-4 text-[var(--primary)]" />
 									</div>
 									<div>
-										<div className="text-xs font-bold text-[var(--foreground)]">导出完毕</div>
-										<div className="text-[10px] text-[var(--muted-foreground)]">28 个链接 · CSV 格式</div>
+										<div className="text-xs font-bold text-[var(--foreground)]">{t('action_bar.copied')}</div>
+										<div className="text-[10px] text-[var(--muted-foreground)]">28 {t('input.links_count')} · CSV</div>
 									</div>
 								</div>
 							</div>
@@ -283,7 +296,7 @@ export function LinkExtractor() {
 									? "bg-[var(--primary)] text-white"
 									: "bg-[var(--card)] text-[var(--border)] hover:bg-[var(--muted)]"
 							}`}>
-							文本输入
+							{t('input.text_tab')}
 						</button>
 						<button
 							onClick={() => setInputTab("file")}
@@ -292,7 +305,7 @@ export function LinkExtractor() {
 									? "bg-[var(--primary)] text-white"
 									: "bg-[var(--card)] text-[var(--border)] hover:bg-[var(--muted)]"
 							}`}>
-							文件上传
+							{t('input.file_tab')}
 						</button>
 					</div>
 					<div className="p-6 sm:p-8">
@@ -311,7 +324,7 @@ export function LinkExtractor() {
 					{/* Section label */}
 					<div className="inline-flex items-center gap-2 rounded-full bg-[var(--primary-light)] px-4 py-1.5">
 						<span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
-						<span className="text-xs font-semibold text-[var(--border)]">结果列表</span>
+						<span className="text-xs font-semibold text-[var(--border)]">{t('results.badge')}</span>
 					</div>
 
 					{/* Action bar + Filter */}
@@ -331,7 +344,7 @@ export function LinkExtractor() {
 					{checking && (
 						<div className="space-y-2 rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-4 shadow-lg sm:p-6">
 							<div className="flex justify-between text-sm font-semibold text-[var(--border)]">
-								<span>正在检查链接...</span>
+								<span>{t('results.checking_progress')}</span>
 								<span>
 									{checkedCount} / {links.length}
 								</span>
@@ -344,7 +357,7 @@ export function LinkExtractor() {
 					<div className="space-y-3">
 						{filteredLinks.length === 0 ? (
 							<div className="rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-12 text-center shadow-lg">
-								<p className="text-sm font-semibold text-[var(--muted-foreground)]">没有匹配的链接</p>
+								<p className="text-sm font-semibold text-[var(--muted-foreground)]">{t('results.empty')}</p>
 							</div>
 						) : (
 							filteredLinks.map((link) => (
@@ -354,7 +367,7 @@ export function LinkExtractor() {
 					</div>
 
 					<div className="pt-4 text-center text-xs font-semibold text-[var(--muted-foreground)]/60">
-						显示 {filteredLinks.length} / {links.length} 个链接
+						{t('results.showing', { filtered: filteredLinks.length, total: links.length })}
 					</div>
 				</div>
 			)}
@@ -366,60 +379,35 @@ export function LinkExtractor() {
 					<div className="mx-auto mb-16 max-w-2xl text-center">
 						<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary-light)] px-4 py-1.5">
 							<span className="h-2 w-2 rounded-full bg-white" />
-							<span className="text-xs font-semibold text-white ">核心功能</span>
+							<span className="text-xs font-semibold text-white ">{t('features.badge')}</span>
 						</div>
 						<h2 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-[var(--foreground)]">
-							强大而简洁的 <span className="text-[var(--primary)]">链接处理工具</span>
+							{t('features.title')} <span className="text-[var(--primary)]">{t('features.title_highlight')}</span>
 						</h2>
 						<p className="mt-4 text-base font-medium leading-relaxed text-[var(--muted-foreground)]">
-							从提取到验证再到导出，一站式完成所有链接操作。纯客户端处理，数据安全无忧。
+							{t('features.description')}
 						</p>
 					</div>
 
 					{/* Feature cards */}
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 						{[
-							{
-								icon: <IconLink className="h-6 w-6 text-white" />,
-								title: "批量提取 URL",
-								description: "支持从纯文本和多文件格式（TXT、JSON、MD、HTML、CSV 等）中自动识别并提取所有链接地址。",
-							},
-							{
-								icon: <IconClock className="h-6 w-6 text-white" />,
-								title: "链接有效性验证",
-								description:
-									"5 并发快速检测每个链接的可用性，自动识别成功、失败、超时状态，并提供 HTTP 状态码和页面标题。",
-							},
-							{
-								icon: <IconDownload className="h-6 w-6 text-white" />,
-								title: "多种导出格式",
-								description: "支持 TXT、JSON、CSV 三种格式导出结果，满足数据分析、文档整理、报告生成等不同场景需求。",
-							},
-							{
-								icon: <IconShield className="h-6 w-6 text-white" />,
-								title: "隐私安全",
-								description: "纯客户端运行，所有数据仅在浏览器中处理，不上传任何内容到服务器，确保你的数据安全。",
-							},
-							{
-								icon: <IconActivity className="h-6 w-6 text-white" />,
-								title: "智能过滤",
-								description: "按全部、成功、失败、等待中状态快速筛选链接，精准定位需要关注的异常链接，提升处理效率。",
-							},
-							{
-								icon: <IconRefresh className="h-6 w-6 text-white" />,
-								title: "重新验证",
-								description: "对失败或超时的链接可单独重新检查，无需重新提取全部链接，节省时间的同时精准定位问题链接。",
-							},
-						].map((feature, i) => (
+							{ icon: <IconLink className="h-6 w-6 text-white" /> },
+							{ icon: <IconClock className="h-6 w-6 text-white" /> },
+							{ icon: <IconDownload className="h-6 w-6 text-white" /> },
+							{ icon: <IconShield className="h-6 w-6 text-white" /> },
+							{ icon: <IconActivity className="h-6 w-6 text-white" /> },
+							{ icon: <IconRefresh className="h-6 w-6 text-white" /> },
+						].map(({ icon }, i) => (
 							<div
 								key={i}
 								className="group rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-8 shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
 								<div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-[var(--primary-light)] transition-transform duration-200 group-hover:scale-110">
-									{feature.icon}
+									{icon}
 								</div>
-								<h3 className="mb-2 text-xl font-bold text-[var(--foreground)]">{feature.title}</h3>
+								<h3 className="mb-2 text-xl font-bold text-[var(--foreground)]">{featuresItems[i]?.title ?? ''}</h3>
 								<p className="text-sm font-medium leading-relaxed text-[var(--muted-foreground)]">
-									{feature.description}
+									{featuresItems[i]?.description ?? ''}
 								</p>
 							</div>
 						))}
@@ -433,45 +421,29 @@ export function LinkExtractor() {
 					<div className="mx-auto mb-16 max-w-2xl text-center">
 						<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-1.5">
 							<span className="h-2 w-2 rounded-full bg-white" />
-							<span className="text-xs font-semibold text-white">使用步骤</span>
+							<span className="text-xs font-semibold text-white">{t('how_it_works.badge')}</span>
 						</div>
 						<h2 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-white">
-							三步完成链接提取
+							{t('how_it_works.title')}
 						</h2>
 						<p className="mt-4 text-base font-medium leading-relaxed text-white/60">
-							无需注册，无需安装，打开浏览器即可使用
+							{t('how_it_works.description')}
 						</p>
 					</div>
 
 					<div className="relative grid gap-8 md:grid-cols-3">
 						{[
-							{
-								step: "1",
-								title: "粘贴或上传",
-								description: "将包含链接的文本粘贴到输入框，或上传 TXT、JSON、HTML 等格式的文件。自动识别所有 URL。",
-								color: "bg-[var(--primary)]",
-							},
-							{
-								step: "2",
-								title: "提取并验证",
-								description: '一键批量提取所有 URL，点击"检查全部"并发验证每个链接的有效性，获取状态码和页面标题。',
-								color: "bg-[var(--primary-dark)]",
-							},
-							{
-								step: "3",
-								title: "筛选与导出",
-								description:
-									"按成功、失败等状态筛选链接，一键复制到剪贴板或导出为 TXT、JSON、CSV 格式，满足不同场景需求。",
-								color: "bg-[var(--primary)]",
-							},
-						].map((item, i) => (
+							{ step: "1", color: "bg-[var(--primary)]" },
+							{ step: "2", color: "bg-[var(--primary-dark)]" },
+							{ step: "3", color: "bg-[var(--primary)]" },
+						].map(({ step, color }, i) => (
 							<div key={i} className="relative text-center">
 								<div
-									className={`relative mx-auto mb-6 flex h-20 w-20 items-center justify-center ${item.color} rounded-2xl shadow-lg`}>
-									<span className="text-3xl font-bold text-white">{item.step}</span>
+									className={`relative mx-auto mb-6 flex h-20 w-20 items-center justify-center ${color} rounded-2xl shadow-lg`}>
+									<span className="text-3xl font-bold text-white">{step}</span>
 								</div>
-								<h3 className="mb-3 text-xl font-bold text-white">{item.title}</h3>
-								<p className="mx-auto max-w-xs text-sm font-medium leading-relaxed text-white/70">{item.description}</p>
+								<h3 className="mb-3 text-xl font-bold text-white">{howItWorksSteps[i]?.title ?? ''}</h3>
+								<p className="mx-auto max-w-xs text-sm font-medium leading-relaxed text-white/70">{howItWorksSteps[i]?.description ?? ''}</p>
 							</div>
 						))}
 					</div>
@@ -484,58 +456,40 @@ export function LinkExtractor() {
 					<div className="mx-auto mb-16 max-w-2xl text-center">
 						<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-1.5">
 							<span className="h-2 w-2 rounded-full bg-white" />
-							<span className="text-xs font-semibold text-white">用户评价</span>
+							<span className="text-xs font-semibold text-white">{t('testimonials.badge')}</span>
 						</div>
 						<h2 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-[var(--foreground)]">
-							深受 <span className="text-[var(--primary)]">开发者喜爱</span>
+							{t('testimonials.title')} <span className="text-[var(--primary)]">{t('testimonials.title_highlight')}</span>
 						</h2>
 						<p className="mt-4 text-base font-medium leading-relaxed text-[var(--muted-foreground)]">
-							来自全球用户的真实反馈
+							{t('testimonials.description')}
 						</p>
 					</div>
 
 					<div className="grid gap-6 md:grid-cols-3">
 						{[
-							{
-								quote:
-									"批量链接验证功能太实用了，不用再手动一个个点开检查。JSON 导出直接对接我的数据分析流程，工作效率提升了很多。",
-								author: "陈明远",
-								role: "全栈开发工程师 · 杭州",
-								color: "var(--primary)",
-							},
-							{
-								quote:
-									"做 SEO 优化需要频繁检查外链状态。这个工具纯客户端运行，不用担心数据泄露，安全放心。界面简洁，功能强大。",
-								author: "Marcus Johnson",
-								role: "SEO 工程师 · 新加坡",
-								color: "var(--primary-dark)",
-							},
-							{
-								quote:
-									"拖拽日志文件就能提取所有链接，多格式导出支持很全面。作为数据分析师，这个工具已经成为我日常工作的必备利器。",
-								author: "张雨晴",
-								role: "数据分析师 · 上海",
-								color: "var(--primary)",
-							},
-						].map((item, i) => (
+							{ color: "var(--primary)" },
+							{ color: "var(--primary-dark)" },
+							{ color: "var(--primary)" },
+						].map(({ color }, i) => (
 							<div
 								key={i}
 								className="group relative rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-8 shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
-								<div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl" style={{ background: item.color }} />
+								<div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl" style={{ background: color }} />
 
 								<p className="relative mb-6 text-sm font-medium leading-relaxed text-[var(--foreground)]">
-									&ldquo;{item.quote}&rdquo;
+									&ldquo;{testimonialItems[i]?.quote ?? ''}&rdquo;
 								</p>
 
 								<div className="flex items-center gap-3">
 									<div
 										className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white shadow-md"
-										style={{ background: item.color }}>
-										{item.author[0]}
+										style={{ background: color }}>
+										{testimonialItems[i]?.author?.[0] ?? ''}
 									</div>
 									<div>
-										<div className="text-sm font-bold text-[var(--foreground)]">{item.author}</div>
-										<div className="text-xs text-[var(--muted-foreground)]">{item.role}</div>
+										<div className="text-sm font-bold text-[var(--foreground)]">{testimonialItems[i]?.author ?? ''}</div>
+										<div className="text-xs text-[var(--muted-foreground)]">{testimonialItems[i]?.role ?? ''}</div>
 									</div>
 								</div>
 							</div>
@@ -544,15 +498,10 @@ export function LinkExtractor() {
 
 					{/* Trust metrics row */}
 					<div className="mt-16 grid grid-cols-2 gap-0 border border-[var(--primary-light)] bg-[var(--card)] shadow-md md:grid-cols-4">
-						{[
-							{ number: "10,000+", label: "链接已处理", bg: "bg-[var(--card)]" },
-							{ number: "99.9%", label: "工具在线率", bg: "bg-[var(--card)]" },
-							{ number: "纯客户端", label: "零数据上传", bg: "bg-[var(--card)]" },
-							{ number: "永久免费", label: "无需付费", bg: "bg-[var(--card)]" },
-						].map((stat, i) => (
+						{testimonialStats.map((stat, i) => (
 							<div
 								key={i}
-								className={`text-center p-8 ${stat.bg} ${i < 3 ? "border-r border-[var(--primary-light)]" : ""}`}>
+								className={`text-center p-8 bg-[var(--card)] ${i < 3 ? "border-r border-[var(--primary-light)]" : ""}`}>
 								<div className="text-2xl font-bold text-[var(--foreground)]">{stat.number}</div>
 								<div className="mt-1 text-xs font-semibold text-[var(--muted-foreground)]">{stat.label}</div>
 							</div>
@@ -566,14 +515,14 @@ export function LinkExtractor() {
 				<div className="relative mx-auto max-w-3xl px-4 text-center">
 					<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-1.5">
 						<span className="h-2 w-2 rounded-full bg-white" />
-						<span className="text-xs font-semibold text-white">免费 · 无需注册 · 永久使用</span>
+						<span className="text-xs font-semibold text-white">{t('final_cta.badge')}</span>
 					</div>
 
 					<h2 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-white">
-						立即开始提取链接
+						{t('final_cta.title')}
 					</h2>
 					<p className="mx-auto mt-4 max-w-lg text-base font-medium leading-relaxed text-white/70">
-						无需注册，无需下载，打开浏览器即可使用。所有数据仅在本地处理，安全可靠。
+						{t('final_cta.description')}
 					</p>
 
 					<div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -581,20 +530,19 @@ export function LinkExtractor() {
 							onClick={() => document.getElementById("input-card")?.scrollIntoView({ behavior: "smooth" })}
 							className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-8 py-3.5 text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(132,204,22,0.39)] transition-all duration-200 hover:bg-[var(--primary-dark)] hover:shadow-[0_6px_20px_-4px_rgba(132,204,22,0.5)] active:scale-[0.98]">
 							<IconLink className="h-5 w-5" />
-							免费开始使用
+							{t('final_cta.cta')}
 						</button>
 						<span className="flex items-center gap-2 text-sm font-semibold text-white/60">
 							<IconCheckCircle className="h-4 w-4 text-[var(--primary)]" />
-							无需信用卡
+							{t('final_cta.no_card')}
 						</span>
 					</div>
 
 					{/* Trust indicators */}
 					<div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold text-white/60">
-						<span>纯客户端处理</span>
-						<span>5 并发验证</span>
-						<span>支持 3 种导出格式</span>
-						<span>支持多语言 URL</span>
+						{finalCtaTrustItems.map((item, i) => (
+							<span key={i}>{item}</span>
+						))}
 					</div>
 				</div>
 			</section>
@@ -607,7 +555,7 @@ export function LinkExtractor() {
 							<IconLink className="h-4 w-4 text-[var(--primary)]" />
 							Link Extractor
 						</div>
-						<p className="text-xs font-semibold text-white/50">纯客户端工具 · 不上传你的数据 · 永久免费使用</p>
+						<p className="text-xs font-semibold text-white/50">{t('footer.tagline')}</p>
 					</div>
 				</div>
 			</footer>

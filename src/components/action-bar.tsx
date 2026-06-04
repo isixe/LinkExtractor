@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { LinkInfo, FilterType } from '../lib/types'
 import { Button } from './button'
 import { IconCopy, IconDownload, IconRefresh, IconTrash, IconLink } from './icons'
@@ -14,6 +15,7 @@ interface ActionBarProps {
 }
 
 export function ActionBar({ links, filter, canCheck, checking, onCheckAll, onClear }: ActionBarProps) {
+  const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
 
   const filteredLinks = filterLinks(links, filter)
@@ -47,7 +49,7 @@ export function ActionBar({ links, filter, canCheck, checking, onCheckAll, onCle
         disabled={filteredLinks.length === 0}
       >
         <IconCopy />
-        {copied ? '已复制' : '复制'}
+        {copied ? t('action_bar.copied') : t('action_bar.copy')}
       </Button>
 
       <Button
@@ -92,12 +94,12 @@ export function ActionBar({ links, filter, canCheck, checking, onCheckAll, onCle
             <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 12a9 9 0 1 1-6.219-8.56" />
             </svg>
-            检查中...
+            {t('action_bar.checking')}
           </>
         ) : (
           <>
             <IconRefresh />
-            检查全部
+            {t('action_bar.check_all')}
           </>
         )}
       </Button>
@@ -109,7 +111,7 @@ export function ActionBar({ links, filter, canCheck, checking, onCheckAll, onCle
         disabled={links.length === 0}
       >
         <IconTrash />
-        清空
+        {t('action_bar.clear')}
       </Button>
     </div>
   )
