@@ -17,9 +17,9 @@ interface LinkCardProps {
 const statusConfig = {
   pending: { icon: IconClock, color: 'text-[var(--muted-foreground)]', bg: 'bg-[var(--muted)]', label: '等待中' },
   checking: { icon: IconLoader, color: 'text-[var(--primary)]', bg: 'bg-[var(--primary-light)]', label: '检查中' },
-  success: { icon: IconCheckCircle, color: 'text-[var(--success)]', bg: 'bg-green-50', label: '成功' },
-  error: { icon: IconXCircle, color: 'text-[var(--error)]', bg: 'bg-red-50', label: '失败' },
-  timeout: { icon: IconAlertTriangle, color: 'text-[var(--warning)]', bg: 'bg-yellow-50', label: '超时' },
+  success: { icon: IconCheckCircle, color: 'text-[var(--success)]', bg: 'bg-[var(--success)]/10', label: '成功' },
+  error: { icon: IconXCircle, color: 'text-[var(--error)]', bg: 'bg-[var(--error)]/10', label: '失败' },
+  timeout: { icon: IconAlertTriangle, color: 'text-[var(--warning)]', bg: 'bg-[var(--warning)]/10', label: '超时' },
 }
 
 export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
@@ -27,7 +27,7 @@ export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
   const Icon = cfg.icon
 
   return (
-    <div className={`rounded-2xl border border-[#84cc16]/40 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 ${cfg.bg}`}>
+    <div className={`rounded-2xl border border-[#84cc16]/40 bg-[var(--card)] p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 ${cfg.bg}`}>
       <div className="flex items-start gap-3">
         <div className={`mt-0.5 flex-shrink-0 ${cfg.color}`}>
           <Icon />

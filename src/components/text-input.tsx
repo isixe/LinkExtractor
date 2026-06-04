@@ -25,7 +25,7 @@ export function TextInput({ onExtract, linkCount }: TextInputProps) {
         value={text}
         onChange={e => setText(e.target.value)}
         placeholder="在此粘贴包含链接的文本..."
-        className="w-full h-32 resize-y rounded-xl border border-[#84cc16]/60 bg-white px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/50 transition-all duration-200 focus:outline-none focus:border-[#84cc16] focus:ring-1 focus:ring-[#84cc16]/10"
+        className="w-full h-32 resize-y rounded-xl border border-[#84cc16]/60 bg-[var(--card)] px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/50 transition-all duration-200 focus:outline-none focus:border-[#84cc16] focus:ring-1 focus:ring-[#84cc16]/10"
       />
 
       <div className="flex items-center justify-between">

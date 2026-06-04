@@ -42,7 +42,7 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
       className={`cursor-pointer rounded-2xl border border-dashed border-[#84cc16]/60 p-8 text-center transition-all duration-200
         ${dragOver
           ? 'border-[#84cc16] bg-[#84cc16]/10 shadow-[0_2px_12px_-4px_rgba(132,204,22,0.2)]'
-          : 'bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5'
+          : 'bg-[var(--card)] shadow-sm hover:shadow-md hover:-translate-y-0.5'
         }`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}

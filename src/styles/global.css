@@ -15,3 +15,35 @@
 	--warning: #eab308;
 	--error: #ef4444;
 }
+
+.dark {
+	--background: #0f1b05;
+	--foreground: #e6f5d0;
+	--primary: #84cc16;
+	--primary-dark: #65a30d;
+	--primary-light: #3d6208;
+	--accent: #9ed13f;
+	--muted: #1a2e05;
+	--muted-foreground: #9ca87a;
+	--border: #4d7c0f;
+	--card: #1a2e05;
+	--success: #22c55e;
+	--warning: #eab308;
+	--error: #ef4444;
+}
+
+/* Smooth theme transition */
+*,
+*::before,
+*::after {
+	transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Exclude transform/opacity from the blanket transition */
+*:has(svg) svg,
+[class*="scale-"],
+[class*="translate-"],
+[class*="-translate-"],
+[style*="transform"] {
+	transition: none;
+}

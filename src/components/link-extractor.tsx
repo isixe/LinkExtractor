@@ -8,7 +8,18 @@ import { FilterBar } from "./filter-bar";
 import { ActionBar } from "./action-bar";
 import { LinkCard } from "./link-card";
 import { Progress } from "./progress";
-import { IconLink } from "./icons";
+import {
+	IconLink,
+	IconCheckCircle,
+	IconStar,
+	IconDownload,
+	IconExternalLink,
+	IconClock,
+	IconActivity,
+	IconShield,
+	IconRefresh,
+	IconArrowUp,
+} from "./icons";
 
 export function LinkExtractor() {
 	const [links, setLinks] = useState<LinkInfo[]>([]);
@@ -144,7 +155,9 @@ export function LinkExtractor() {
 						{/* Badge */}
 						<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[var(--primary-light)] px-4 py-1.5">
 							<span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
-							<span className="text-xs font-semibold text-[var(--border)]">免费在线工具 · 无需注册</span>
+							<span className="text-xs font-semibold dark:text-[var(--border)] text-white">
+								免费在线工具 · 无需注册
+							</span>
 						</div>
 
 						<h1 className="text-5xl font-extrabold leading-tight tracking-tight sm:text-7xl lg:text-6xl">
@@ -162,32 +175,12 @@ export function LinkExtractor() {
 							<button
 								onClick={() => document.getElementById("input-card")?.scrollIntoView({ behavior: "smooth" })}
 								className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-8 py-3.5 text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(132,204,22,0.39)] transition-all duration-200 hover:bg-[var(--primary-dark)] hover:shadow-[0_6px_20px_-4px_rgba(132,204,22,0.5)] active:scale-[0.98]">
-								<svg
-									className="h-5 w-5"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round">
-									<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-									<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-								</svg>
+								<IconLink className="h-5 w-5" />
 								立即开始提取
 							</button>
 							<span className="hidden text-sm text-[var(--muted-foreground)]/30 sm:inline">·</span>
 							<div className="flex items-center gap-2 text-sm font-semibold text-[var(--muted-foreground)]">
-								<svg
-									className="h-4 w-4 text-[var(--primary)]"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round">
-									<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-									<polyline points="9 12 11 14 15 10" />
-								</svg>
+								<IconCheckCircle className="h-4 w-4 text-[var(--primary)]" />
 								无需注册，免费使用
 							</div>
 						</div>
@@ -207,9 +200,7 @@ export function LinkExtractor() {
 								<span className="text-[var(--foreground)]">100+</span> 人在用
 								<div className="flex items-center gap-1 text-xs text-[var(--primary)]">
 									{[...Array(5)].map((_, i) => (
-										<svg key={i} className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
-											<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-										</svg>
+										<IconStar key={i} className="h-3 w-3" />
 									))}
 									<span className="ml-1 text-[var(--muted-foreground)]/60">4.9</span>
 								</div>
@@ -226,7 +217,7 @@ export function LinkExtractor() {
 							</div>
 
 							{/* Rotated square */}
-							<div className="absolute h-52 w-52 rotate-12 rounded-2xl border-4 border-[var(--primary-dark)] bg-white">
+							<div className="absolute h-52 w-52 rotate-12 rounded-2xl border-4 border-[var(--primary-dark)] bg-[var(--card)]">
 								<div className="flex h-full items-center justify-center -rotate-12">
 									<IconLink className="h-10 w-10 text-[var(--primary)]" strokeWidth={2} />
 								</div>
@@ -242,7 +233,7 @@ export function LinkExtractor() {
 							<div className="absolute -right-10 top-10 h-8 w-8 rotate-45 rounded-lg bg-[var(--primary-dark)]" />
 
 							{/* Result cards */}
-							<div className="absolute -left-6 top-6 z-30 w-64 rounded-2xl border border-[var(--primary-light)] bg-white p-4 shadow-lg">
+							<div className="absolute -left-6 top-6 z-30 w-64 rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-4 shadow-lg">
 								<div className="mb-3 flex items-center gap-2">
 									<div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--primary)]">
 										<IconLink className="h-4 w-4 text-white" strokeWidth={2} />
@@ -264,20 +255,10 @@ export function LinkExtractor() {
 							</div>
 
 							{/* Export card */}
-							<div className="absolute -bottom-2 -right-8 z-20 w-52 rounded-2xl border border-[var(--primary-light)] bg-white p-3 shadow-lg">
+							<div className="absolute -bottom-2 -right-8 z-20 w-52 rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-3 shadow-lg">
 								<div className="flex items-center gap-2">
 									<div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--primary-light)]">
-										<svg
-											className="h-4 w-4 text-[var(--primary)]"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth="2"
-											strokeLinecap="round"
-											strokeLinejoin="round">
-											<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-											<polyline points="7 10 12 15 17 10" />
-										</svg>
+										<IconDownload className="h-4 w-4 text-[var(--primary)]" />
 									</div>
 									<div>
 										<div className="text-xs font-bold text-[var(--foreground)]">导出完毕</div>
@@ -292,7 +273,7 @@ export function LinkExtractor() {
 
 			{/* ── INPUT CARD (floats above hero) ── */}
 			<div id="input-card" className="relative z-10 -mt-40 pb-20 mx-auto max-w-4xl px-4">
-				<div className="rounded-2xl border border-[var(--primary-light)] bg-white shadow-xl">
+				<div className="rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] shadow-xl">
 					{/* Tabs */}
 					<div className="flex border-b border-[var(--primary-light)]">
 						<button
@@ -300,7 +281,7 @@ export function LinkExtractor() {
 							className={`flex-1 px-4 py-4 text-sm font-semibold transition-all duration-200 rounded-tl-2xl ${
 								inputTab === "text"
 									? "bg-[var(--primary)] text-white"
-									: "bg-white text-[var(--border)] hover:bg-[var(--muted)]"
+									: "bg-[var(--card)] text-[var(--border)] hover:bg-[var(--muted)]"
 							}`}>
 							文本输入
 						</button>
@@ -309,7 +290,7 @@ export function LinkExtractor() {
 							className={`flex-1 px-4 py-4 text-sm font-semibold transition-all duration-200 rounded-tr-2xl ${
 								inputTab === "file"
 									? "bg-[var(--primary)] text-white"
-									: "bg-white text-[var(--border)] hover:bg-[var(--muted)]"
+									: "bg-[var(--card)] text-[var(--border)] hover:bg-[var(--muted)]"
 							}`}>
 							文件上传
 						</button>
@@ -334,7 +315,7 @@ export function LinkExtractor() {
 					</div>
 
 					{/* Action bar + Filter */}
-					<div className="space-y-4 rounded-2xl border border-[var(--primary-light)] bg-white p-4 shadow-lg sm:p-6">
+					<div className="space-y-4 rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-4 shadow-lg sm:p-6">
 						<ActionBar
 							links={links}
 							filter={filter}
@@ -348,7 +329,7 @@ export function LinkExtractor() {
 
 					{/* Progress */}
 					{checking && (
-						<div className="space-y-2 rounded-2xl border border-[var(--primary-light)] bg-white p-4 shadow-lg sm:p-6">
+						<div className="space-y-2 rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-4 shadow-lg sm:p-6">
 							<div className="flex justify-between text-sm font-semibold text-[var(--border)]">
 								<span>正在检查链接...</span>
 								<span>
@@ -362,7 +343,7 @@ export function LinkExtractor() {
 					{/* Link list */}
 					<div className="space-y-3">
 						{filteredLinks.length === 0 ? (
-							<div className="rounded-2xl border border-[var(--primary-light)] bg-white p-12 text-center shadow-lg">
+							<div className="rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-12 text-center shadow-lg">
 								<p className="text-sm font-semibold text-[var(--muted-foreground)]">没有匹配的链接</p>
 							</div>
 						) : (
@@ -379,7 +360,7 @@ export function LinkExtractor() {
 			)}
 
 			{/* ─── FEATURES ─── */}
-			<section className="border-b border-[var(--primary-light)] bg-white py-24 lg:py-28">
+			<section className="border-b border-[var(--primary-light)] bg-[var(--card)] py-24 lg:py-28">
 				<div className="mx-auto max-w-7xl px-4">
 					{/* Header */}
 					<div className="mx-auto mb-16 max-w-2xl text-center">
@@ -399,112 +380,40 @@ export function LinkExtractor() {
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 						{[
 							{
-								icon: (
-									<svg
-										className="h-6 w-6 text-white"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round">
-										<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-										<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-									</svg>
-								),
+								icon: <IconLink className="h-6 w-6 text-white" />,
 								title: "批量提取 URL",
 								description: "支持从纯文本和多文件格式（TXT、JSON、MD、HTML、CSV 等）中自动识别并提取所有链接地址。",
 							},
 							{
-								icon: (
-									<svg
-										className="h-6 w-6 text-white"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round">
-										<circle cx="12" cy="12" r="10" />
-										<polyline points="12 6 12 12 16 14" />
-									</svg>
-								),
+								icon: <IconClock className="h-6 w-6 text-white" />,
 								title: "链接有效性验证",
 								description:
 									"5 并发快速检测每个链接的可用性，自动识别成功、失败、超时状态，并提供 HTTP 状态码和页面标题。",
 							},
 							{
-								icon: (
-									<svg
-										className="h-6 w-6 text-white"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round">
-										<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-										<polyline points="7 10 12 15 17 10" />
-										<line x1="12" y1="15" x2="12" y2="3" />
-									</svg>
-								),
+								icon: <IconDownload className="h-6 w-6 text-white" />,
 								title: "多种导出格式",
 								description: "支持 TXT、JSON、CSV 三种格式导出结果，满足数据分析、文档整理、报告生成等不同场景需求。",
 							},
 							{
-								icon: (
-									<svg
-										className="h-6 w-6 text-white"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round">
-										<rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-										<path d="M7 11V7a5 5 0 0 1 10 0v4" />
-									</svg>
-								),
+								icon: <IconShield className="h-6 w-6 text-white" />,
 								title: "隐私安全",
 								description: "纯客户端运行，所有数据仅在浏览器中处理，不上传任何内容到服务器，确保你的数据安全。",
 							},
 							{
-								icon: (
-									<svg
-										className="h-6 w-6 text-white"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round">
-										<polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-									</svg>
-								),
+								icon: <IconActivity className="h-6 w-6 text-white" />,
 								title: "智能过滤",
 								description: "按全部、成功、失败、等待中状态快速筛选链接，精准定位需要关注的异常链接，提升处理效率。",
 							},
 							{
-								icon: (
-									<svg
-										className="h-6 w-6 text-white"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round">
-										<polyline points="23 4 23 10 17 10" />
-										<path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
-									</svg>
-								),
+								icon: <IconRefresh className="h-6 w-6 text-white" />,
 								title: "重新验证",
 								description: "对失败或超时的链接可单独重新检查，无需重新提取全部链接，节省时间的同时精准定位问题链接。",
 							},
 						].map((feature, i) => (
 							<div
 								key={i}
-								className="group rounded-2xl border border-[var(--primary-light)] bg-white p-8 shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+								className="group rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-8 shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
 								<div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-[var(--primary-light)] transition-transform duration-200 group-hover:scale-110">
 									{feature.icon}
 								</div>
@@ -519,7 +428,7 @@ export function LinkExtractor() {
 			</section>
 
 			{/* ─── HOW IT WORKS ─── */}
-			<section className="border-b border-[var(--primary-light)] bg-[var(--foreground)] py-24 lg:py-28">
+			<section className="border-b border-[var(--primary-light)] bg-[#0f1b05] dark:bg-[#0a1a04] py-24 lg:py-28">
 				<div className="relative mx-auto max-w-7xl px-4">
 					<div className="mx-auto mb-16 max-w-2xl text-center">
 						<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-1.5">
@@ -611,7 +520,7 @@ export function LinkExtractor() {
 						].map((item, i) => (
 							<div
 								key={i}
-								className="group relative rounded-2xl border border-[var(--primary-light)] bg-white p-8 shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+								className="group relative rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-8 shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
 								<div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl" style={{ background: item.color }} />
 
 								<p className="relative mb-6 text-sm font-medium leading-relaxed text-[var(--foreground)]">
@@ -634,12 +543,12 @@ export function LinkExtractor() {
 					</div>
 
 					{/* Trust metrics row */}
-					<div className="mt-16 grid grid-cols-2 gap-0 border border-[var(--primary-light)] bg-white shadow-md md:grid-cols-4">
+					<div className="mt-16 grid grid-cols-2 gap-0 border border-[var(--primary-light)] bg-[var(--card)] shadow-md md:grid-cols-4">
 						{[
-							{ number: "10,000+", label: "链接已处理", bg: "bg-white" },
-							{ number: "99.9%", label: "工具在线率", bg: "bg-white" },
-							{ number: "纯客户端", label: "零数据上传", bg: "bg-white" },
-							{ number: "永久免费", label: "无需付费", bg: "bg-white" },
+							{ number: "10,000+", label: "链接已处理", bg: "bg-[var(--card)]" },
+							{ number: "99.9%", label: "工具在线率", bg: "bg-[var(--card)]" },
+							{ number: "纯客户端", label: "零数据上传", bg: "bg-[var(--card)]" },
+							{ number: "永久免费", label: "无需付费", bg: "bg-[var(--card)]" },
 						].map((stat, i) => (
 							<div
 								key={i}
@@ -653,7 +562,7 @@ export function LinkExtractor() {
 			</section>
 
 			{/* ─── FINAL CTA ─── */}
-			<section className="border-b border-[var(--primary-light)] bg-[var(--foreground)] py-24 lg:py-28">
+			<section className="border-b border-[var(--primary-light)] bg-[#0f1b05] dark:bg-[#0a1a04] py-24 lg:py-28">
 				<div className="relative mx-auto max-w-3xl px-4 text-center">
 					<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-1.5">
 						<span className="h-2 w-2 rounded-full bg-white" />
@@ -671,31 +580,11 @@ export function LinkExtractor() {
 						<button
 							onClick={() => document.getElementById("input-card")?.scrollIntoView({ behavior: "smooth" })}
 							className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-8 py-3.5 text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(132,204,22,0.39)] transition-all duration-200 hover:bg-[var(--primary-dark)] hover:shadow-[0_6px_20px_-4px_rgba(132,204,22,0.5)] active:scale-[0.98]">
-							<svg
-								className="h-5 w-5"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								strokeLinejoin="round">
-								<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-								<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-							</svg>
+							<IconLink className="h-5 w-5" />
 							免费开始使用
 						</button>
 						<span className="flex items-center gap-2 text-sm font-semibold text-white/60">
-							<svg
-								className="h-4 w-4 text-[var(--primary)]"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								strokeLinejoin="round">
-								<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-								<polyline points="9 12 11 14 15 10" />
-							</svg>
+							<IconCheckCircle className="h-4 w-4 text-[var(--primary)]" />
 							无需信用卡
 						</span>
 					</div>
@@ -711,21 +600,11 @@ export function LinkExtractor() {
 			</section>
 
 			{/* ─── FOOTER ─── */}
-			<footer className="bg-[var(--foreground)] py-10">
+			<footer className="bg-[#0f1b05] dark:bg-[#0a1a04] py-10">
 				<div className="mx-auto max-w-7xl px-4">
 					<div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
 						<div className="flex items-center gap-2 text-sm font-bold text-white">
-							<svg
-								className="h-4 w-4 text-[var(--primary)]"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								strokeLinejoin="round">
-								<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-								<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-							</svg>
+							<IconLink className="h-4 w-4 text-[var(--primary)]" />
 							Link Extractor
 						</div>
 						<p className="text-xs font-semibold text-white/50">纯客户端工具 · 不上传你的数据 · 永久免费使用</p>
