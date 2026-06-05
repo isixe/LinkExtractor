@@ -60,34 +60,19 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
 
   try {
-    const resp = await fetch(url, {
-      method: 'HEAD',
-      signal: controller.signal,
-      mode: 'no-cors',
-    })
-
-    let statusCode = resp.status
+    let statusCode = 0
     let title: string | undefined
     let description: string | undefined
 
-    // no-cors mode always returns 0; fallback to GET
-    if (statusCode === 0) {
-      const getResp = await fetch(url, {
-        method: 'GET',
-        signal: controller.signal,
-        mode: 'no-cors',
-      })
-      statusCode = getResp.status
-    }
-
-    // Try to fetch with GET for metadata (opaque response won't have body)
+    // Step 1: Try a normal CORS GET — if allowed, we get real status + body
     try {
-      const textResp = await fetch(url, {
+      const corsResp = await fetch(url, {
         method: 'GET',
         signal: controller.signal,
       })
-      if (textResp.ok) {
-        const html = await textResp.text()
+      statusCode = corsResp.status
+      if (corsResp.ok) {
+        const html = await corsResp.text()
         const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i)
         title = titleMatch ? titleMatch[1].trim() : undefined
         const descMatch = html.match(
@@ -96,7 +81,19 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
         description = descMatch ? descMatch[1].trim() : undefined
       }
     } catch {
-      // metadata fetch is best-effort
+      // CORS blocked — fall back to no-cors HEAD to confirm reachable
+      try {
+        const opaqueResp = await fetch(url, {
+          method: 'HEAD',
+          signal: controller.signal,
+          mode: 'no-cors',
+        })
+        // no-cors HEAD succeeded (no throw) → resource is reachable
+        statusCode = 0
+      } catch {
+        // Even no-cors failed → resource likely unreachable
+        throw new Error('无法访问该链接')
+      }
     }
 
     clearTimeout(timer)

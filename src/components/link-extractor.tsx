@@ -24,18 +24,31 @@ import {
 } from "./icons";
 
 export function LinkExtractor() {
-	const { t } = useTranslation()
+	const { t } = useTranslation();
 	const [links, setLinks] = useState<LinkInfo[]>([]);
-	const rawFeaturesItems = t('features.items', { returnObjects: true })
-	const rawHowItWorksSteps = t('how_it_works.steps', { returnObjects: true })
-	const rawTestimonialItems = t('testimonials.items', { returnObjects: true })
-	const rawTestimonialStats = t('testimonials.stats', { returnObjects: true })
-	const rawFinalCtaTrustItems = t('final_cta.trust_items', { returnObjects: true })
-	const featuresItems = (Array.isArray(rawFeaturesItems) ? rawFeaturesItems : []) as { title: string; description: string }[]
-	const howItWorksSteps = (Array.isArray(rawHowItWorksSteps) ? rawHowItWorksSteps : []) as { title: string; description: string }[]
-	const testimonialItems = (Array.isArray(rawTestimonialItems) ? rawTestimonialItems : []) as { quote: string; author: string; role: string }[]
-	const testimonialStats = (Array.isArray(rawTestimonialStats) ? rawTestimonialStats : []) as { number: string; label: string }[]
-	const finalCtaTrustItems = (Array.isArray(rawFinalCtaTrustItems) ? rawFinalCtaTrustItems : []) as string[]
+	const rawFeaturesItems = t("features.items", { returnObjects: true });
+	const rawHowItWorksSteps = t("how_it_works.steps", { returnObjects: true });
+	const rawTestimonialItems = t("testimonials.items", { returnObjects: true });
+	const rawTestimonialStats = t("testimonials.stats", { returnObjects: true });
+	const rawFinalCtaTrustItems = t("final_cta.trust_items", { returnObjects: true });
+	const featuresItems = (Array.isArray(rawFeaturesItems) ? rawFeaturesItems : []) as {
+		title: string;
+		description: string;
+	}[];
+	const howItWorksSteps = (Array.isArray(rawHowItWorksSteps) ? rawHowItWorksSteps : []) as {
+		title: string;
+		description: string;
+	}[];
+	const testimonialItems = (Array.isArray(rawTestimonialItems) ? rawTestimonialItems : []) as {
+		quote: string;
+		author: string;
+		role: string;
+	}[];
+	const testimonialStats = (Array.isArray(rawTestimonialStats) ? rawTestimonialStats : []) as {
+		number: string;
+		label: string;
+	}[];
+	const finalCtaTrustItems = (Array.isArray(rawFinalCtaTrustItems) ? rawFinalCtaTrustItems : []) as string[];
 	const [inputTab, setInputTab] = useState<"file" | "text">("text");
 	const [filter, setFilter] = useState<FilterType>("all");
 	const [checking, setChecking] = useState(false);
@@ -168,19 +181,17 @@ export function LinkExtractor() {
 						{/* Badge */}
 						<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[var(--primary-light)] px-4 py-1.5">
 							<span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
-							<span className="text-xs font-semibold dark:text-[var(--border)] text-white">
-								{t('hero.badge')}
-							</span>
+							<span className="text-xs font-semibold dark:text-[var(--border)] text-white">{t("hero.badge")}</span>
 						</div>
 
 						<h1 className="text-5xl font-extrabold leading-tight tracking-tight sm:text-7xl lg:text-6xl">
-							{t('hero.title_line1')}
+							{t("hero.title_line1")}
 							<br />
-							<span className="text-[var(--primary)]">{t('hero.title_highlight')}</span>
+							<span className="text-[var(--primary)]">{t("hero.title_highlight")}</span>
 						</h1>
 
 						<p className="mx-auto mt-5 max-w-xl text-lg font-medium leading-relaxed text-[var(--foreground)] lg:mx-0">
-							{t('hero.description')}
+							{t("hero.description")}
 						</p>
 
 						{/* CTA buttons */}
@@ -189,12 +200,12 @@ export function LinkExtractor() {
 								onClick={() => document.getElementById("input-card")?.scrollIntoView({ behavior: "smooth" })}
 								className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-8 py-3.5 text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(132,204,22,0.39)] transition-all duration-200 hover:bg-[var(--primary-dark)] hover:shadow-[0_6px_20px_-4px_rgba(132,204,22,0.5)] active:scale-[0.98]">
 								<IconLink className="h-5 w-5" />
-								{t('hero.cta')}
+								{t("hero.cta")}
 							</button>
 							<span className="hidden text-sm text-[var(--muted-foreground)]/30 sm:inline">·</span>
 							<div className="flex items-center gap-2 text-sm font-semibold text-[var(--muted-foreground)]">
 								<IconCheckCircle className="h-4 w-4 text-[var(--primary)]" />
-								{t('hero.free_tag')}
+								{t("hero.free_tag")}
 							</div>
 						</div>
 
@@ -210,12 +221,12 @@ export function LinkExtractor() {
 								))}
 							</div>
 							<div className="text-left text-sm font-semibold text-[var(--muted-foreground)]">
-								<span className="text-[var(--foreground)]">100+</span> {t('hero.users_label')}
+								<span className="text-[var(--foreground)]">100+</span> {t("hero.users_label")}
 								<div className="flex items-center gap-1 text-xs text-[var(--primary)]">
 									{[...Array(5)].map((_, i) => (
 										<IconStar key={i} className="h-3 w-3" />
 									))}
-									<span className="ml-1 text-[var(--muted-foreground)]/60">{t('hero.rating_label')}</span>
+									<span className="ml-1 text-[var(--muted-foreground)]/60">{t("hero.rating_label")}</span>
 								</div>
 							</div>
 						</div>
@@ -251,7 +262,7 @@ export function LinkExtractor() {
 									<div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--primary)]">
 										<IconLink className="h-4 w-4 text-white" strokeWidth={2} />
 									</div>
-									<span className="text-sm font-bold text-[var(--foreground)]">{t('results.badge')}</span>
+									<span className="text-sm font-bold text-[var(--foreground)]">{t("results.badge")}</span>
 								</div>
 								<div className="space-y-2">
 									{[
@@ -274,8 +285,8 @@ export function LinkExtractor() {
 										<IconDownload className="h-4 w-4 text-[var(--primary)]" />
 									</div>
 									<div>
-										<div className="text-xs font-bold text-[var(--foreground)]">{t('action_bar.copied')}</div>
-										<div className="text-[10px] text-[var(--muted-foreground)]">28 {t('input.links_count')} · CSV</div>
+										<div className="text-xs font-bold text-[var(--foreground)]">{t("action_bar.copied")}</div>
+										<div className="text-[10px] text-[var(--muted-foreground)]">28 {t("input.links_count")} · CSV</div>
 									</div>
 								</div>
 							</div>
@@ -296,7 +307,7 @@ export function LinkExtractor() {
 									? "bg-[var(--primary)] text-white"
 									: "bg-[var(--card)] text-[var(--border)] hover:bg-[var(--muted)]"
 							}`}>
-							{t('input.text_tab')}
+							{t("input.text_tab")}
 						</button>
 						<button
 							onClick={() => setInputTab("file")}
@@ -305,7 +316,7 @@ export function LinkExtractor() {
 									? "bg-[var(--primary)] text-white"
 									: "bg-[var(--card)] text-[var(--border)] hover:bg-[var(--muted)]"
 							}`}>
-							{t('input.file_tab')}
+							{t("input.file_tab")}
 						</button>
 					</div>
 					<div className="p-6 sm:p-8">
@@ -323,8 +334,8 @@ export function LinkExtractor() {
 				<div className="mx-auto mt-10 max-w-4xl space-y-4 px-4 pb-20">
 					{/* Section label */}
 					<div className="inline-flex items-center gap-2 rounded-full bg-[var(--primary-light)] px-4 py-1.5">
-						<span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
-						<span className="text-xs font-semibold text-[var(--border)]">{t('results.badge')}</span>
+						<span className="h-2 w-2 rounded-full bg-white dark:bg-[var(--primary)]" />
+						<span className="text-xs font-semibold text-white dark:text-[var(--border)]">{t("results.badge")}</span>
 					</div>
 
 					{/* Action bar + Filter */}
@@ -344,7 +355,7 @@ export function LinkExtractor() {
 					{checking && (
 						<div className="space-y-2 rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-4 shadow-lg sm:p-6">
 							<div className="flex justify-between text-sm font-semibold text-[var(--border)]">
-								<span>{t('results.checking_progress')}</span>
+								<span>{t("results.checking_progress")}</span>
 								<span>
 									{checkedCount} / {links.length}
 								</span>
@@ -357,7 +368,7 @@ export function LinkExtractor() {
 					<div className="space-y-3">
 						{filteredLinks.length === 0 ? (
 							<div className="rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-12 text-center shadow-lg">
-								<p className="text-sm font-semibold text-[var(--muted-foreground)]">{t('results.empty')}</p>
+								<p className="text-sm font-semibold text-[var(--muted-foreground)]">{t("results.empty")}</p>
 							</div>
 						) : (
 							filteredLinks.map((link) => (
@@ -367,7 +378,7 @@ export function LinkExtractor() {
 					</div>
 
 					<div className="pt-4 text-center text-xs font-semibold text-[var(--muted-foreground)]/60">
-						{t('results.showing', { filtered: filteredLinks.length, total: links.length })}
+						{t("results.showing", { filtered: filteredLinks.length, total: links.length })}
 					</div>
 				</div>
 			)}
@@ -379,13 +390,13 @@ export function LinkExtractor() {
 					<div className="mx-auto mb-16 max-w-2xl text-center">
 						<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary-light)] px-4 py-1.5">
 							<span className="h-2 w-2 rounded-full bg-white" />
-							<span className="text-xs font-semibold text-white ">{t('features.badge')}</span>
+							<span className="text-xs font-semibold text-white ">{t("features.badge")}</span>
 						</div>
 						<h2 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-[var(--foreground)]">
-							{t('features.title')} <span className="text-[var(--primary)]">{t('features.title_highlight')}</span>
+							{t("features.title")} <span className="text-[var(--primary)]">{t("features.title_highlight")}</span>
 						</h2>
 						<p className="mt-4 text-base font-medium leading-relaxed text-[var(--muted-foreground)]">
-							{t('features.description')}
+							{t("features.description")}
 						</p>
 					</div>
 
@@ -405,9 +416,9 @@ export function LinkExtractor() {
 								<div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-[var(--primary-light)] transition-transform duration-200 group-hover:scale-110">
 									{icon}
 								</div>
-								<h3 className="mb-2 text-xl font-bold text-[var(--foreground)]">{featuresItems[i]?.title ?? ''}</h3>
+								<h3 className="mb-2 text-xl font-bold text-[var(--foreground)]">{featuresItems[i]?.title ?? ""}</h3>
 								<p className="text-sm font-medium leading-relaxed text-[var(--muted-foreground)]">
-									{featuresItems[i]?.description ?? ''}
+									{featuresItems[i]?.description ?? ""}
 								</p>
 							</div>
 						))}
@@ -421,14 +432,12 @@ export function LinkExtractor() {
 					<div className="mx-auto mb-16 max-w-2xl text-center">
 						<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-1.5">
 							<span className="h-2 w-2 rounded-full bg-white" />
-							<span className="text-xs font-semibold text-white">{t('how_it_works.badge')}</span>
+							<span className="text-xs font-semibold text-white">{t("how_it_works.badge")}</span>
 						</div>
 						<h2 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-white">
-							{t('how_it_works.title')}
+							{t("how_it_works.title")}
 						</h2>
-						<p className="mt-4 text-base font-medium leading-relaxed text-white/60">
-							{t('how_it_works.description')}
-						</p>
+						<p className="mt-4 text-base font-medium leading-relaxed text-white/60">{t("how_it_works.description")}</p>
 					</div>
 
 					<div className="relative grid gap-8 md:grid-cols-3">
@@ -442,8 +451,10 @@ export function LinkExtractor() {
 									className={`relative mx-auto mb-6 flex h-20 w-20 items-center justify-center ${color} rounded-2xl shadow-lg`}>
 									<span className="text-3xl font-bold text-white">{step}</span>
 								</div>
-								<h3 className="mb-3 text-xl font-bold text-white">{howItWorksSteps[i]?.title ?? ''}</h3>
-								<p className="mx-auto max-w-xs text-sm font-medium leading-relaxed text-white/70">{howItWorksSteps[i]?.description ?? ''}</p>
+								<h3 className="mb-3 text-xl font-bold text-white">{howItWorksSteps[i]?.title ?? ""}</h3>
+								<p className="mx-auto max-w-xs text-sm font-medium leading-relaxed text-white/70">
+									{howItWorksSteps[i]?.description ?? ""}
+								</p>
 							</div>
 						))}
 					</div>
@@ -456,44 +467,45 @@ export function LinkExtractor() {
 					<div className="mx-auto mb-16 max-w-2xl text-center">
 						<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-1.5">
 							<span className="h-2 w-2 rounded-full bg-white" />
-							<span className="text-xs font-semibold text-white">{t('testimonials.badge')}</span>
+							<span className="text-xs font-semibold text-white">{t("testimonials.badge")}</span>
 						</div>
 						<h2 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-[var(--foreground)]">
-							{t('testimonials.title')} <span className="text-[var(--primary)]">{t('testimonials.title_highlight')}</span>
+							{t("testimonials.title")}{" "}
+							<span className="text-[var(--primary)]">{t("testimonials.title_highlight")}</span>
 						</h2>
 						<p className="mt-4 text-base font-medium leading-relaxed text-[var(--muted-foreground)]">
-							{t('testimonials.description')}
+							{t("testimonials.description")}
 						</p>
 					</div>
 
 					<div className="grid gap-6 md:grid-cols-3">
-						{[
-							{ color: "var(--primary)" },
-							{ color: "var(--primary-dark)" },
-							{ color: "var(--primary)" },
-						].map(({ color }, i) => (
-							<div
-								key={i}
-								className="group relative rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-8 shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
-								<div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl" style={{ background: color }} />
+						{[{ color: "var(--primary)" }, { color: "var(--primary-dark)" }, { color: "var(--primary)" }].map(
+							({ color }, i) => (
+								<div
+									key={i}
+									className="group relative rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-8 shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+									<div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl" style={{ background: color }} />
 
-								<p className="relative mb-6 text-sm font-medium leading-relaxed text-[var(--foreground)]">
-									&ldquo;{testimonialItems[i]?.quote ?? ''}&rdquo;
-								</p>
+									<p className="relative mb-6 text-sm font-medium leading-relaxed text-[var(--foreground)]">
+										&ldquo;{testimonialItems[i]?.quote ?? ""}&rdquo;
+									</p>
 
-								<div className="flex items-center gap-3">
-									<div
-										className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white shadow-md"
-										style={{ background: color }}>
-										{testimonialItems[i]?.author?.[0] ?? ''}
-									</div>
-									<div>
-										<div className="text-sm font-bold text-[var(--foreground)]">{testimonialItems[i]?.author ?? ''}</div>
-										<div className="text-xs text-[var(--muted-foreground)]">{testimonialItems[i]?.role ?? ''}</div>
+									<div className="flex items-center gap-3">
+										<div
+											className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white shadow-md"
+											style={{ background: color }}>
+											{testimonialItems[i]?.author?.[0] ?? ""}
+										</div>
+										<div>
+											<div className="text-sm font-bold text-[var(--foreground)]">
+												{testimonialItems[i]?.author ?? ""}
+											</div>
+											<div className="text-xs text-[var(--muted-foreground)]">{testimonialItems[i]?.role ?? ""}</div>
+										</div>
 									</div>
 								</div>
-							</div>
-						))}
+							),
+						)}
 					</div>
 
 					{/* Trust metrics row */}
@@ -515,14 +527,14 @@ export function LinkExtractor() {
 				<div className="relative mx-auto max-w-3xl px-4 text-center">
 					<div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-1.5">
 						<span className="h-2 w-2 rounded-full bg-white" />
-						<span className="text-xs font-semibold text-white">{t('final_cta.badge')}</span>
+						<span className="text-xs font-semibold text-white">{t("final_cta.badge")}</span>
 					</div>
 
 					<h2 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-white">
-						{t('final_cta.title')}
+						{t("final_cta.title")}
 					</h2>
 					<p className="mx-auto mt-4 max-w-lg text-base font-medium leading-relaxed text-white/70">
-						{t('final_cta.description')}
+						{t("final_cta.description")}
 					</p>
 
 					<div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -530,11 +542,11 @@ export function LinkExtractor() {
 							onClick={() => document.getElementById("input-card")?.scrollIntoView({ behavior: "smooth" })}
 							className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-8 py-3.5 text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(132,204,22,0.39)] transition-all duration-200 hover:bg-[var(--primary-dark)] hover:shadow-[0_6px_20px_-4px_rgba(132,204,22,0.5)] active:scale-[0.98]">
 							<IconLink className="h-5 w-5" />
-							{t('final_cta.cta')}
+							{t("final_cta.cta")}
 						</button>
 						<span className="flex items-center gap-2 text-sm font-semibold text-white/60">
 							<IconCheckCircle className="h-4 w-4 text-[var(--primary)]" />
-							{t('final_cta.no_card')}
+							{t("final_cta.no_card")}
 						</span>
 					</div>
 
@@ -555,7 +567,7 @@ export function LinkExtractor() {
 							<IconLink className="h-4 w-4 text-[var(--primary)]" />
 							Link Extractor
 						</div>
-						<p className="text-xs font-semibold text-white/50">{t('footer.tagline')}</p>
+						<p className="text-xs font-semibold text-white/50">{t("footer.tagline")}</p>
 					</div>
 				</div>
 			</footer>
