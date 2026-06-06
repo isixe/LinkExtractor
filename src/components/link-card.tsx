@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { IconClock, IconLoader, IconCheckCircle, IconXCircle, IconAlertTriangle } from "./icons";
+import { IconClock, IconLoader, IconCheck, IconCheckCircle, IconXCircle, IconAlertTriangle, IconCopy } from "./icons";
 
 interface LinkCardProps {
 	link: LinkInfo;
@@ -19,26 +20,48 @@ export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
 	const { t } = useTranslation();
 	const cfg = statusConfig[link.status];
 	const Icon = cfg.icon;
+	const [copied, setCopied] = useState(false);
+
+	const handleCopy = async (e: React.MouseEvent) => {
+		e.stopPropagation();
+		try {
+			await navigator.clipboard.writeText(link.url);
+			setCopied(true);
+			setTimeout(() => setCopied(false), 2000);
+		} catch {}
+	};
 
 	return (
-		<div className="flex items-center gap-3 border-b border-[var(--primary-light)] px-4 py-3 text-sm last:border-b-0 hover:bg-[var(--muted)] transition-colors">
+		<div className="flex items-center gap-2 border-b border-[var(--primary-light)] px-4 py-3 text-sm last:border-b-0 hover:bg-[var(--muted)] transition-colors">
 			<div className={`flex-shrink-0 ${cfg.color}`}>
 				<Icon />
 			</div>
 
-			<a
-				href={link.url}
-				target="_blank"
-				rel="noopener noreferrer"
-				className="min-w-0 flex-1 truncate font-semibold text-black dark:text-[var(--primary)] hover:underline">
-				{link.url}
-			</a>
+			<span className="min-w-0 flex-1 truncate font-semibold text-[var(--muted-foreground)] flex items-center gap-1.5">
+				<a
+					href={link.url}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="truncate text-black dark:text-[var(--primary)] hover:underline">
+					{link.url}
+				</a>
+				<button
+					onClick={handleCopy}
+					className="flex-shrink-0 text-[var(--muted-foreground)] transition-colors hover:text-[var(--primary)]"
+					title={t("action_bar.copy")}>
+					{copied ? (
+						<IconCheck className="text-[var(--success)]" />
+					) : (
+						<IconCopy />
+					)}
+				</button>
+			</span>
 
 			{link.errorMessage && (
 				<span className="max-w-[200px] truncate text-xs text-[var(--error)]">{link.errorMessage}</span>
 			)}
 
-			<div className="flex flex-shrink-0 items-center gap-2">
+			<div className="flex flex-shrink-0 items-center gap-1.5">
 				<span className={`whitespace-nowrap text-xs font-medium ${cfg.color}`}>
 					{t(`link_card.${link.status}`)}
 					{link.statusCode !== undefined && ` (${link.statusCode})`}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from './button'
-import { IconCopy, IconDownload, IconRefresh, IconTrash, IconLink } from './icons'
+import { IconCopy, IconCheck, IconDownload, IconRefresh, IconTrash, IconLink } from './icons'
 import { formatLinksForExport, downloadFile, copyToClipboard, filterLinks } from '../lib/link-utils'
 
 interface ActionBarProps {
@@ -47,8 +47,7 @@ export function ActionBar({ links, filter, canCheck, checking, onCheckAll, onCle
         onClick={handleCopy}
         disabled={filteredLinks.length === 0}
       >
-        <IconCopy />
-        {copied ? t('action_bar.copied') : t('action_bar.copy')}
+        {copied ? <IconCheck className="text-[var(--success)]" /> : <IconCopy />}
       </Button>
 
       <Button

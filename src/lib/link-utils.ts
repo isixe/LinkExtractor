@@ -197,6 +197,12 @@ export function groupByDomain(links: LinkInfo[]): DomainGroup[] {
     .sort((a, b) => a.domain.localeCompare(b.domain))
 }
 
+export function searchLinks(links: LinkInfo[], query: string): LinkInfo[] {
+  if (!query.trim()) return links
+  const q = query.toLowerCase()
+  return links.filter(l => l.url.toLowerCase().includes(q))
+}
+
 const SUPPORTED_EXTENSIONS = [
   '.txt', '.json', '.md', '.html', '.htm', '.xml', '.csv',
   '.js', '.ts', '.jsx', '.tsx',

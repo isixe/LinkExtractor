@@ -1,4 +1,5 @@
 ﻿export {
+  IconCheck,
   IconClock,
   IconLoader,
   IconCheckCircle,
@@ -19,4 +20,5 @@
   IconExternalLink,
   IconActivity,
   IconShield,
+  IconChevronDown,
 } from '../assets/icons'

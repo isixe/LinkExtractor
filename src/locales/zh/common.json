@@ -45,7 +45,11 @@
     "badge": "结果列表",
     "checking_progress": "正在检查链接...",
     "empty": "没有匹配的链接",
-    "showing": "显示 {{filtered}} / {{total}} 个链接"
+    "showing": "显示 {{filtered}} / {{total}} 个链接",
+    "search_placeholder": "按 URL 搜索链接...",
+    "group_view": "按域名分组",
+    "flat_view": "平铺列表",
+    "domain_count": "{{count}} 个链接"
   },
   "link_card": {
     "pending": "等待中",

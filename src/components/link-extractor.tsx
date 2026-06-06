@@ -1,12 +1,13 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "../locales/i18n";
-import { extractLinks, createLinkInfo, checkAllLinks, checkSingleLink, filterLinks, groupByDomain } from "../lib/link-utils";
+import { extractLinks, createLinkInfo, checkAllLinks, checkSingleLink, filterLinks, groupByDomain, searchLinks, copyToClipboard } from "../lib/link-utils";
 import { FileUploadTab } from "./file-upload";
 import { TextInput } from "./text-input";
 import { FilterBar } from "./filter-bar";
 import { ActionBar } from "./action-bar";
 import { LinkCard } from "./link-card";
+import { DomainGroup } from "./domain-group";
 import { Progress } from "./progress";
 import {
 	IconLink,
@@ -51,10 +52,18 @@ export function LinkExtractor() {
 	const [filter, setFilter] = useState<FilterType>("all");
 	const [checking, setChecking] = useState(false);
 	const [checkedCount, setCheckedCount] = useState(0);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [groupView, setGroupView] = useState(false);
+	const [copiedId, setCopiedId] = useState<string | null>(null);
 
 	const rawLinkCount = links.length;
 
-	const filteredLinks = useMemo(() => filterLinks(links, filter), [links, filter]);
+	const filteredLinks = useMemo(() => {
+		const statusFiltered = filterLinks(links, filter);
+		return searchLinks(statusFiltered, searchQuery);
+	}, [links, filter, searchQuery]);
+
+	const groupedLinks = useMemo(() => groupByDomain(filteredLinks), [filteredLinks]);
 
 	const counts = useMemo(
 		() => ({
@@ -77,6 +86,15 @@ export function LinkExtractor() {
 		setLinks(newLinks);
 		setCheckedCount(0);
 		setFilter("all");
+	}, []);
+
+	const handleCopyLinks = useCallback(async (label: string, urls: string[]) => {
+		const text = urls.join("\n");
+		const ok = await copyToClipboard(text);
+		if (ok) {
+			setCopiedId(label);
+			setTimeout(() => setCopiedId(null), 2000);
+		}
 	}, []);
 
 	const handleCheckAll = useCallback(async () => {
@@ -356,16 +374,65 @@ export function LinkExtractor() {
 						</div>
 					)}
 
+					{/* Search + Group toggle */}
+					<div className="flex items-center gap-2">
+						<div className="relative flex-1">
+							<svg
+								className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]"
+								width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+								<circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+							</svg>
+							<input
+								type="text"
+								value={searchQuery}
+								onChange={(e) => setSearchQuery(e.target.value)}
+								placeholder={t("results.search_placeholder")}
+								className="w-full rounded-xl border border-[var(--primary-light)] bg-[var(--card)] py-2 pl-9 pr-4 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/50 transition-all duration-200 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)]/10"
+							/>
+						</div>
+						<select
+							value={groupView ? "group" : "flat"}
+							onChange={(e) => setGroupView(e.target.value === "group")}
+							className="appearance-none rounded-xl border border-[var(--primary-light)] bg-[var(--card)] px-3 py-2 pr-8 text-sm font-semibold text-[var(--foreground)] transition-all duration-200 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)]/10">
+							<option value="flat" className="bg-[var(--card)]">{t("results.flat_view")}</option>
+							<option value="group" className="bg-[var(--card)]">{t("results.group_view")}</option>
+						</select>
+					</div>
+
 					{/* Link list */}
 					<div className="overflow-hidden rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] shadow-sm">
 						{filteredLinks.length === 0 ? (
 							<div className="p-12 text-center">
 								<p className="text-sm font-semibold text-[var(--muted-foreground)]">{t("results.empty")}</p>
 							</div>
-						) : (
-							filteredLinks.map((link) => (
-								<LinkCard key={link.id} link={link} onDelete={handleDelete} onReverify={handleReverify} />
+						) : groupView ? (
+							groupedLinks.map((group) => (
+								<DomainGroup
+									key={group.domain}
+									domain={group.domain}
+									links={group.links}
+									copied={copiedId === group.domain}
+									onCopy={() => handleCopyLinks(group.domain, group.links.map(l => l.url))}
+									onDelete={handleDelete}
+									onReverify={handleReverify}
+								/>
 							))
+						) : (
+							<>
+								<div className="flex items-center justify-end gap-2 border-b border-[var(--primary-light)] px-4 py-2">
+									<button
+										onClick={() => handleCopyLinks("flat", filteredLinks.map(l => l.url))}
+										className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--muted-foreground)] transition-colors hover:text-[var(--primary)]">
+										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+											<rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+										</svg>
+										{copiedId === "flat" ? t("action_bar.copied") : t("action_bar.copy")}
+									</button>
+								</div>
+								{filteredLinks.map((link) => (
+									<LinkCard key={link.id} link={link} onDelete={handleDelete} onReverify={handleReverify} />
+								))}
+							</>
 						)}
 					</div>
 

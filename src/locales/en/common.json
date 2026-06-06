@@ -45,7 +45,11 @@
     "badge": "Results",
     "checking_progress": "Checking links...",
     "empty": "No matching links",
-    "showing": "Showing {{filtered}} / {{total}} links"
+    "showing": "Showing {{filtered}} / {{total}} links",
+    "search_placeholder": "Search links by URL...",
+    "group_view": "Group by Domain",
+    "flat_view": "Flat View",
+    "domain_count": "{{count}} links"
   },
   "link_card": {
     "pending": "Pending",
