@@ -119,8 +119,8 @@
     "items": [
       {
         "quote": "The batch link verification feature is incredibly useful — no more manually checking each link. JSON export directly feeds into my data analysis workflow. Work efficiency has improved significantly.",
-        "author": "Chen Mingyuan",
-        "role": "Full-stack Developer · Hangzhou"
+        "author": "Alex Turner",
+        "role": "Full-stack Developer · Los Angeles"
       },
       {
         "quote": "I frequently check outbound links for SEO optimization. This tool runs entirely client-side, so no data leakage concerns. Clean UI, powerful features.",
@@ -129,8 +129,8 @@
       },
       {
         "quote": "Drag and drop log files to extract all links, with comprehensive multi-format export. As a data analyst, this tool has become essential in my daily workflow.",
-        "author": "Zhang Yuqing",
-        "role": "Data Analyst · Shanghai"
+        "author": "Sophie Chen",
+        "role": "Data Analyst · San Francisco"
       }
     ],
     "stats": [

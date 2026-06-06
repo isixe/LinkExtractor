@@ -306,7 +306,7 @@ export function LinkExtractor() {
 			</section>
 
 			{/* ── INPUT CARD (floats above hero) ── */}
-			<div id="input-card" className="relative z-10 -mt-40 pb-20 mx-auto max-w-4xl px-4">
+			<div id="input-card" className={`relative z-10 -mt-40 mx-auto max-w-4xl px-4 ${links.length > 0 ? 'pb-0' : 'pb-20'}`}>
 				<div className="rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] shadow-xl">
 					{/* Tabs */}
 					<div className="flex border-b border-[var(--primary-light)]">
