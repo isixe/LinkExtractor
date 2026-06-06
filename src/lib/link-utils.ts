@@ -1,8 +1,4 @@
-import type { LinkInfo, FilterType, CheckResult } from './types'
 
-// Match http(s):// URLs up to whitespace, angle brackets, parens, and CJK.
-// CJK characters are excluded because they are never part of a valid raw URL
-// and reliably separate URLs from surrounding Chinese prose.
 const urlRegex = /https?:\/\/[^\s<>"{}|\\^`\[\]()（）\u4e00-\u9fff\u3000-\u303f\uff00-\uffef]+/gi
 
 export function extractLinks(text: string): string[] {
@@ -31,14 +27,6 @@ function cleanUrl(url: string): string | null {
   }
 }
 
-export function getFaviconUrl(url: string): string {
-  try {
-    const parsed = new URL(url)
-    return `https://www.google.com/s2/favicons?domain=${parsed.hostname}&sz=64`
-  } catch {
-    return ''
-  }
-}
 
 export function generateId(): string {
   return crypto.randomUUID()
@@ -186,6 +174,27 @@ export function readFileAsText(file: File): Promise<string> {
     reader.onerror = () => reject(new Error('文件读取失败'))
     reader.readAsText(file)
   })
+}
+
+export function extractDomain(url: string): string {
+  try {
+    const u = new URL(url)
+    return u.hostname
+  } catch {
+    return url
+  }
+}
+
+export function groupByDomain(links: LinkInfo[]): DomainGroup[] {
+  const groups = new Map<string, LinkInfo[]>()
+  for (const link of links) {
+    const domain = extractDomain(link.url)
+    if (!groups.has(domain)) groups.set(domain, [])
+    groups.get(domain)!.push(link)
+  }
+  return Array.from(groups.entries())
+    .map(([domain, links]) => ({ domain, links }))
+    .sort((a, b) => a.domain.localeCompare(b.domain))
 }
 
 const SUPPORTED_EXTENSIONS = [

@@ -1,8 +1,8 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import en from '../locales/en/common.json'
-import zh from '../locales/zh/common.json'
+import en from './en/common.json'
+import zh from './zh/common.json'
 
 const SUPPORTED_LANGS = ['en', 'zh']
 const DEFAULT_LANG = 'en'

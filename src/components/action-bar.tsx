@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { LinkInfo, FilterType } from '../lib/types'
 import { Button } from './button'
 import { IconCopy, IconDownload, IconRefresh, IconTrash, IconLink } from './icons'
 import { formatLinksForExport, downloadFile, copyToClipboard, filterLinks } from '../lib/link-utils'

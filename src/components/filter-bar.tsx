@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import type { FilterType } from '../lib/types'
 import { Badge } from './badge'
 
 interface FilterBarProps {

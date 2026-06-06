@@ -1,4 +1,4 @@
-export interface LinkInfo {
+interface LinkInfo {
   id: string
   url: string
   status: 'pending' | 'checking' | 'success' | 'error' | 'timeout'
@@ -7,11 +7,18 @@ export interface LinkInfo {
   errorMessage?: string
 }
 
-export type FilterType = 'all' | 'success' | 'error' | 'pending'
+type FilterType = 'all' | 'success' | 'error' | 'pending'
 
-export interface CheckResult {
+interface CheckResult {
   success: boolean
   statusCode?: number
   error?: string
   message?: string
 }
+
+interface DomainGroup {
+  domain: string
+  links: LinkInfo[]
+}
+
+type LinkInfoWithDomain = LinkInfo & { domain: string }

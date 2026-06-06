@@ -1,6 +1,4 @@
 import { useTranslation } from "react-i18next";
-import type { LinkInfo } from "../lib/types";
-import { getFaviconUrl } from "../lib/link-utils";
 import { IconClock, IconLoader, IconCheckCircle, IconXCircle, IconAlertTriangle } from "./icons";
 
 interface LinkCardProps {
@@ -83,7 +81,7 @@ export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
 							<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
 						</svg>
 					</button>
-                )}
+				)}
 			</div>
 		</div>
 	);

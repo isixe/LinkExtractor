@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import "../lib/i18n"
+import "../locales/i18n"
 import { IconGithub } from '../assets/icons'
 import { ThemeToggle } from './theme-toggle'
 import { LanguageToggle } from './language-toggle'

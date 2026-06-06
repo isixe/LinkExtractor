@@ -1,9 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import "../lib/i18n";
-import type { LinkInfo, FilterType } from "../lib/types";
-import { extractLinks, createLinkInfo, checkAllLinks, checkSingleLink, filterLinks } from "../lib/link-utils";
-import type { CheckResult } from "../lib/types";
+import "../locales/i18n";
+import { extractLinks, createLinkInfo, checkAllLinks, checkSingleLink, filterLinks, groupByDomain } from "../lib/link-utils";
 import { FileUploadTab } from "./file-upload";
 import { TextInput } from "./text-input";
 import { FilterBar } from "./filter-bar";
