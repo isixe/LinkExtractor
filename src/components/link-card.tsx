@@ -10,11 +10,11 @@ interface LinkCardProps {
 }
 
 const statusConfig = {
-	pending: { icon: IconClock, color: "text-[var(--muted-foreground)]", bg: "bg-[var(--border)]" },
-	checking: { icon: IconLoader, color: "text-[var(--primary)]", bg: "bg-[var(--muted)]" },
-	success: { icon: IconCheckCircle, color: "text-[var(--success)]", bg: "bg-[var(--success)]/10" },
-	error: { icon: IconXCircle, color: "text-[var(--error)]", bg: "bg-[var(--error)]/10" },
-	timeout: { icon: IconAlertTriangle, color: "text-[var(--warning)]", bg: "bg-[var(--warning)]/10" },
+	pending: { icon: IconClock, color: "text-[var(--muted-foreground)]" },
+	checking: { icon: IconLoader, color: "text-[var(--primary)]" },
+	success: { icon: IconCheckCircle, color: "text-[var(--success)]" },
+	error: { icon: IconXCircle, color: "text-[var(--error)]" },
+	timeout: { icon: IconAlertTriangle, color: "text-[var(--warning)]" },
 };
 
 export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
@@ -23,89 +23,67 @@ export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
 	const Icon = cfg.icon;
 
 	return (
-		<div
-			className={`rounded-2xl border border-[#84cc16]/40 bg-[var(--card)] p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 ${cfg.bg}`}>
-			<div className="flex items-start gap-3">
-				<div className={`mt-0.5 flex-shrink-0 ${cfg.color}`}>
-					<Icon />
-				</div>
+		<div className="flex items-center gap-3 border-b border-[var(--primary-light)] px-4 py-3 text-sm last:border-b-0 hover:bg-[var(--muted)] transition-colors">
+			<div className={`flex-shrink-0 ${cfg.color}`}>
+				<Icon />
+			</div>
 
-				<div className="min-w-0 flex-1">
-					<div className="mb-1 flex items-center gap-2">
-						{link.status === "success" && link.favicon && (
-							<img
-								src={getFaviconUrl(link.url)}
-								alt=""
-								className="h-4 w-4 rounded"
-								onError={(e) => {
-									(e.target as HTMLImageElement).style.display = "none";
-								}}
-							/>
-						)}
-						{link.title && <span className="truncate text-sm font-medium text-[var(--foreground)]">{link.title}</span>}
-						{link.statusCode && link.statusCode > 0 && (
-							<span className="flex-shrink-0 text-xs text-[var(--muted-foreground)]">{link.statusCode}</span>
-						)}
-					</div>
+			<a
+				href={link.url}
+				target="_blank"
+				rel="noopener noreferrer"
+				className="min-w-0 flex-1 truncate font-semibold text-black dark:text-[var(--primary)] hover:underline">
+				{link.url}
+			</a>
 
-					<a
-						href={link.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="block truncate text-xs text-black dark:text-[var(--primary)] font-semibold hover:underline">
-						{link.url}
-					</a>
+			{link.errorMessage && (
+				<span className="max-w-[200px] truncate text-xs text-[var(--error)]">{link.errorMessage}</span>
+			)}
 
-					{link.description && (
-						<p className="mt-1 line-clamp-2 text-xs text-[var(--muted-foreground)]">{link.description}</p>
-					)}
+			<div className="flex flex-shrink-0 items-center gap-2">
+				<span className={`whitespace-nowrap text-xs font-medium ${cfg.color}`}>
+					{t(`link_card.${link.status}`)}
+					{link.statusCode !== undefined && ` (${link.statusCode})`}
+				</span>
 
-					{link.errorMessage && <p className="mt-1 text-xs text-[var(--error)]">{link.errorMessage}</p>}
-				</div>
-
-				<div className="flex flex-shrink-0 items-center gap-1">
-					<span className={`text-xs font-medium ${cfg.color}`}>{t(`link_card.${link.status}`)}</span>
-					<div className="ml-2 flex gap-1">
-						{link.status === "error" || link.status === "timeout" ? (
-							<button
-								onClick={() => onReverify?.(link.id)}
-								className="text-[var(--muted-foreground)] transition-colors hover:text-[var(--primary)]"
-								title={t("link_card.reverify_title")}>
-								<svg
-									width="14"
-									height="14"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round">
-									<polyline points="23 4 23 10 17 10" />
-									<path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
-								</svg>
-							</button>
-						) : null}
-						{onDelete && (
-							<button
-								onClick={() => onDelete(link.id)}
-								className="text-[var(--muted-foreground)] transition-colors hover:text-[var(--error)]"
-								title={t("link_card.delete_title")}>
-								<svg
-									width="14"
-									height="14"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round">
-									<polyline points="3 6 5 6 21 6" />
-									<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-								</svg>
-							</button>
-						)}
-					</div>
-				</div>
+				{(link.status === "error" || link.status === "timeout") && (
+					<button
+						onClick={() => onReverify?.(link.id)}
+						className="text-[var(--muted-foreground)] transition-colors hover:text-[var(--primary)]"
+						title={t("link_card.reverify_title")}>
+						<svg
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round">
+							<polyline points="23 4 23 10 17 10" />
+							<path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+						</svg>
+					</button>
+				)}
+				{onDelete && (
+					<button
+						onClick={() => onDelete(link.id)}
+						className="text-[var(--muted-foreground)] transition-colors hover:text-[var(--error)]"
+						title={t("link_card.delete_title")}>
+						<svg
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round">
+							<polyline points="3 6 5 6 21 6" />
+							<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+						</svg>
+					</button>
+                )}
 			</div>
 		</div>
 	);

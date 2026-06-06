@@ -106,8 +106,6 @@ export function LinkExtractor() {
 								? ("timeout" as const)
 								: ("error" as const),
 						statusCode: result.statusCode,
-						title: result.title,
-						description: result.description,
 						errorMessage: result.success ? undefined : result.message,
 					};
 				}),
@@ -134,8 +132,6 @@ export function LinkExtractor() {
 						? {
 								...l,
 								status: "checking",
-								title: undefined,
-								description: undefined,
 								statusCode: undefined,
 								errorMessage: undefined,
 							}
@@ -152,8 +148,6 @@ export function LinkExtractor() {
 						...l,
 						status: result.success ? "success" : result.error === "timeout" ? "timeout" : "error",
 						statusCode: result.statusCode,
-						title: result.title,
-						description: result.description,
 						errorMessage: result.success ? undefined : result.message,
 					};
 				}),
@@ -365,9 +359,9 @@ export function LinkExtractor() {
 					)}
 
 					{/* Link list */}
-					<div className="space-y-3">
+					<div className="overflow-hidden rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] shadow-sm">
 						{filteredLinks.length === 0 ? (
-							<div className="rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-12 text-center shadow-lg">
+							<div className="p-12 text-center">
 								<p className="text-sm font-semibold text-[var(--muted-foreground)]">{t("results.empty")}</p>
 							</div>
 						) : (

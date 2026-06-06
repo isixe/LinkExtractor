@@ -61,8 +61,6 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
 
   try {
     let statusCode = 0
-    let title: string | undefined
-    let description: string | undefined
 
     // Step 1: Try a normal CORS GET — if allowed, we get real status + body
     try {
@@ -71,15 +69,6 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
         signal: controller.signal,
       })
       statusCode = corsResp.status
-      if (corsResp.ok) {
-        const html = await corsResp.text()
-        const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i)
-        title = titleMatch ? titleMatch[1].trim() : undefined
-        const descMatch = html.match(
-          /<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i
-        )
-        description = descMatch ? descMatch[1].trim() : undefined
-      }
     } catch {
       // CORS blocked — fall back to no-cors HEAD to confirm reachable
       try {
@@ -100,8 +89,6 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
     return {
       success: true,
       statusCode,
-      title,
-      description,
     }
   } catch (err: unknown) {
     clearTimeout(timer)
@@ -148,14 +135,12 @@ export function formatLinksForExport(
     case 'json':
       return JSON.stringify(links, null, 2)
     case 'csv':
-      const header = 'URL,Status,StatusCode,Title,Description'
+      const header = 'URL,Status,StatusCode'
       const rows = links.map(l =>
         [
           l.url,
           l.status,
           l.statusCode ?? '',
-          `"${(l.title ?? '').replace(/"/g, '""')}"`,
-          `"${(l.description ?? '').replace(/"/g, '""')}"`,
         ].join(',')
       )
       return [header, ...rows].join('\n')
