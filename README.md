@@ -32,8 +32,8 @@ A free, privacy-first tool for batch link extraction, validation, and export. Al
 ### Clone & Install
 
 ```bash
-git clone https://github.com/yourusername/link-extractor.git
-cd link-extractor
+git clone https://github.com/isixe/LinkExtractor.git
+cd LinkExtractor
 pnpm install
 ```
 
