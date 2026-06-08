@@ -28,18 +28,9 @@ const url = "https://link-extractor.itea.dev";
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-			rel="stylesheet"
-		/>
-
 		<script src="https://analytics.itea.dev/tracker.min.js" id="analytics" data-website-id="link-extractor"></script>
 	</head>
-	<body
-		class="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased"
-		style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif;">
+	<body class="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
 		<slot />
 	</body>
 </html>
