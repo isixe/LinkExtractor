@@ -1,5 +1,4 @@
-
-const urlRegex = /https?:\/\/[^\s<>"{}|\\^`\[\]()（）\u4e00-\u9fff\u3000-\u303f\uff00-\uffef]+/gi
+const urlRegex = /(https?):\/\/[-\u4e00-\u9fffA-Za-z0-9+&@#\/%?=~_|!:,.;]+[-\u4e00-\u9fffA-Za-z0-9+&@#\/%=~_|]/gi
 
 export function extractLinks(text: string): string[] {
   const matches = text.match(urlRegex)
