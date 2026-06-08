@@ -42,18 +42,14 @@ export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
 					href={link.url}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="truncate text-black dark:text-[var(--primary)] hover:underline">
+					className="truncate dark:text-white text-[var(--primary)] hover:underline">
 					{link.url}
 				</a>
 				<button
 					onClick={handleCopy}
 					className="flex-shrink-0 text-[var(--muted-foreground)] transition-colors hover:text-[var(--primary)]"
 					title={t("action_bar.copy")}>
-					{copied ? (
-						<IconCheck className="text-[var(--success)]" />
-					) : (
-						<IconCopy />
-					)}
+					{copied ? <IconCheck className="text-[var(--success)]" /> : <IconCopy />}
 				</button>
 			</span>
 
