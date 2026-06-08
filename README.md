@@ -2,6 +2,8 @@
 
 A free, privacy-first tool for batch link extraction, validation, and export. All processing happens locally in your browser — nothing is uploaded to any server.
 
+![Link Extractor Cover](https://github.com/isixe/LinkExtractor/blob/main/doc/image/preview.png?raw=true)
+
 ## Features
 
 - **Batch URL Extraction** — Automatically extract all links from plain text and multiple file formats (TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX)
