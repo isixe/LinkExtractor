@@ -1,7 +1,16 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "../locales/i18n";
-import { extractLinks, createLinkInfo, checkAllLinks, checkSingleLink, filterLinks, groupByDomain, searchLinks, copyToClipboard } from "../lib/link-utils";
+import {
+	extractLinks,
+	createLinkInfo,
+	checkAllLinks,
+	checkSingleLink,
+	filterLinks,
+	groupByDomain,
+	searchLinks,
+	copyToClipboard,
+} from "../lib/link-utils";
 import { FileUploadTab } from "./file-upload";
 import { TextInput } from "./text-input";
 import { FilterBar } from "./filter-bar";
@@ -306,7 +315,9 @@ export function LinkExtractor() {
 			</section>
 
 			{/* ── INPUT CARD (floats above hero) ── */}
-			<div id="input-card" className={`relative z-10 -mt-40 mx-auto max-w-4xl px-4 ${links.length > 0 ? 'pb-0' : 'pb-20'}`}>
+			<div
+				id="input-card"
+				className={`relative z-10 -mt-40 mx-auto max-w-4xl px-4 ${links.length > 0 ? "pb-0" : "pb-20"}`}>
 				<div className="rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] shadow-xl">
 					{/* Tabs */}
 					<div className="flex border-b border-[var(--primary-light)]">
@@ -379,8 +390,16 @@ export function LinkExtractor() {
 						<div className="relative flex-1">
 							<svg
 								className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]"
-								width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-								<circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round">
+								<circle cx="11" cy="11" r="8" />
+								<line x1="21" y1="21" x2="16.65" y2="16.65" />
 							</svg>
 							<input
 								type="text"
@@ -394,8 +413,12 @@ export function LinkExtractor() {
 							value={groupView ? "group" : "flat"}
 							onChange={(e) => setGroupView(e.target.value === "group")}
 							className="appearance-none rounded-xl border border-[var(--primary-light)] bg-[var(--card)] px-3 py-2 pr-8 text-sm font-semibold text-[var(--foreground)] transition-all duration-200 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)]/10">
-							<option value="flat" className="bg-[var(--card)]">{t("results.flat_view")}</option>
-							<option value="group" className="bg-[var(--card)]">{t("results.group_view")}</option>
+							<option value="flat" className="bg-[var(--card)]">
+								{t("results.flat_view")}
+							</option>
+							<option value="group" className="bg-[var(--card)]">
+								{t("results.group_view")}
+							</option>
 						</select>
 					</div>
 
@@ -412,7 +435,12 @@ export function LinkExtractor() {
 									domain={group.domain}
 									links={group.links}
 									copied={copiedId === group.domain}
-									onCopy={() => handleCopyLinks(group.domain, group.links.map(l => l.url))}
+									onCopy={() =>
+										handleCopyLinks(
+											group.domain,
+											group.links.map((l) => l.url),
+										)
+									}
 									onDelete={handleDelete}
 									onReverify={handleReverify}
 								/>
@@ -421,10 +449,24 @@ export function LinkExtractor() {
 							<>
 								<div className="flex items-center justify-end gap-2 border-b border-[var(--primary-light)] px-4 py-2">
 									<button
-										onClick={() => handleCopyLinks("flat", filteredLinks.map(l => l.url))}
+										onClick={() =>
+											handleCopyLinks(
+												"flat",
+												filteredLinks.map((l) => l.url),
+											)
+										}
 										className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--muted-foreground)] transition-colors hover:text-[var(--primary)]">
-										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-											<rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+										<svg
+											width="14"
+											height="14"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											strokeWidth="2"
+											strokeLinecap="round"
+											strokeLinejoin="round">
+											<rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+											<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
 										</svg>
 										{copiedId === "flat" ? t("action_bar.copied") : t("action_bar.copy")}
 									</button>
@@ -588,7 +630,6 @@ export function LinkExtractor() {
 						<span className="h-2 w-2 rounded-full bg-white" />
 						<span className="text-xs font-semibold text-white">{t("final_cta.badge")}</span>
 					</div>
-
 					<h2 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-white">
 						{t("final_cta.title")}
 					</h2>
@@ -626,7 +667,16 @@ export function LinkExtractor() {
 							<IconLink className="h-4 w-4 text-[var(--primary)]" />
 							Link Extractor
 						</div>
-						<p className="text-xs font-semibold text-white/50">{t("footer.tagline")}</p>
+						<p className="text-xs font-semibold text-white/50">
+							{t("footer.made_by")}{" "}
+							<a
+								href="https://github.com/isixe"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="underline hover:text-[var(--primary)] transition-colors">
+								isixe
+							</a>
+						</p>
 					</div>
 				</div>
 			</footer>
