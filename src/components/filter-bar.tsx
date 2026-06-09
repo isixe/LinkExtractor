@@ -24,7 +24,7 @@ export function FilterBar({ current, onChange, counts }: FilterBarProps) {
         <button
           key={key}
           onClick={() => onChange(key)}
-          className={`px-3 py-1.5 text-sm font-semibold rounded-full transition-all duration-200
+          className={`px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-semibold rounded-full transition-all duration-200
             ${current === key
               ? 'bg-[var(--primary)] text-white shadow-md'
               : 'bg-[var(--card)] text-[#84cc16]/80 border border-[#84cc16]/40 hover:bg-[var(--muted)] active:scale-[0.98]'

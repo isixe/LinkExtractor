@@ -59,12 +59,12 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
         onChange={handleFileChange}
       />
       <IconUpload className="mx-auto mb-3 text-[var(--primary)]" />
-      <p className="text-sm font-semibold text-[var(--border)]">
+      <p className="text-xs sm:text-sm font-semibold text-[var(--border)]">
         {fileName
           ? t('input.file_selected', { fileName })
           : t('input.file_drag_hint')}
       </p>
-      <p className="mt-1 text-xs text-[var(--muted-foreground)]">
+      <p className="mt-1 text-[10px] sm:text-xs text-[var(--muted-foreground)]">
         {t('input.file_formats')}
       </p>
     </div>

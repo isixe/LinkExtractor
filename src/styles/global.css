@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --font-size-xs: 0.6875rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-base: 0.9375rem;
+  --font-size-lg: 1.0625rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+}
+
 :root {
 	--background: #f7fee7;
 	--foreground: #1a2e05;

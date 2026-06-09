@@ -32,7 +32,7 @@ export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
 	};
 
 	return (
-		<div className="flex items-center gap-2 border-b border-[var(--primary-light)] px-4 py-3 text-sm last:border-b-0 hover:bg-[var(--muted)] transition-colors">
+		<div className="flex items-center gap-2 border-b border-[var(--primary-light)] px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm last:border-b-0 hover:bg-[var(--muted)] transition-colors">
 			<div className={`flex-shrink-0 ${cfg.color}`}>
 				<Icon />
 			</div>
@@ -54,11 +54,11 @@ export function LinkCard({ link, onDelete, onReverify }: LinkCardProps) {
 			</span>
 
 			{link.errorMessage && (
-				<span className="max-w-[200px] truncate text-xs text-[var(--error)]">{link.errorMessage}</span>
+				<span className="max-w-[200px] truncate text-[10px] sm:text-xs text-[var(--error)]">{link.errorMessage}</span>
 			)}
 
 			<div className="flex flex-shrink-0 items-center gap-1.5">
-				<span className={`whitespace-nowrap text-xs font-medium ${cfg.color}`}>
+				<span className={`whitespace-nowrap text-[10px] sm:text-xs font-medium ${cfg.color}`}>
 					{t(`link_card.${link.status}`)}
 					{link.statusCode !== undefined && ` (${link.statusCode})`}
 				</span>

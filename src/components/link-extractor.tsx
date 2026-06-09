@@ -200,17 +200,17 @@ export function LinkExtractor() {
 					<div className="text-center lg:text-left">
 						{/* Badge */}
 						<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[var(--primary-light)] px-4 py-1.5">
-							<span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
+							<span className="h-2 w-2 rounded-full bg-white dark:bg-[var(--primary)]" />
 							<span className="text-xs font-semibold dark:text-[var(--border)] text-white">{t("hero.badge")}</span>
 						</div>
 
-						<h1 className="text-5xl font-extrabold leading-tight tracking-tight sm:text-7xl lg:text-6xl">
+						<h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl lg:text-6xl">
 							{t("hero.title_line1")}
 							<br />
 							<span className="text-[var(--primary)]">{t("hero.title_highlight")}</span>
 						</h1>
 
-						<p className="mx-auto mt-5 max-w-xl text-lg font-medium leading-relaxed text-[var(--foreground)] lg:mx-0">
+						<p className="mx-auto mt-5 max-w-xl text-sm font-medium leading-relaxed text-[var(--foreground)] lg:mx-0">
 							{t("hero.description")}
 						</p>
 

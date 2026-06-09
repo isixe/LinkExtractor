@@ -18,7 +18,7 @@ export function DomainGroup({ domain, links, copied, onCopy, onDelete, onReverif
 
 	return (
 		<div className="border-b border-[var(--primary-light)] last:border-b-0">
-			<div className="flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-[var(--border)] hover:bg-[var(--muted)] transition-colors">
+			<div className="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-bold text-[var(--border)] hover:bg-[var(--muted)] transition-colors">
 				<button
 					onClick={() => setExpanded(!expanded)}
 					className="flex items-center gap-2 flex-1 text-left">
@@ -27,14 +27,14 @@ export function DomainGroup({ domain, links, copied, onCopy, onDelete, onReverif
 					/>
 					<IconGlobe className="h-4 w-4 text-[var(--primary)]" />
 					<span className="text-[var(--foreground)]">{domain}</span>
-					<span className="ml-2 text-xs font-semibold text-[var(--muted-foreground)]">
+					<span className="ml-2 text-[10px] sm:text-xs font-semibold text-[var(--muted-foreground)]">
 						{t("results.domain_count", { count: links.length })}
 					</span>
 				</button>
 				{onCopy && (
 					<button
 						onClick={onCopy}
-						className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--muted-foreground)] transition-colors hover:text-[var(--primary)]"
+						className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-[var(--muted-foreground)] transition-colors hover:text-[var(--primary)]"
 						title={t("action_bar.copy")}>
 						{copied ? (
 							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--success)]">

@@ -27,11 +27,11 @@ export function TextInput({ onExtract, linkCount }: TextInputProps) {
         value={text}
         onChange={e => setText(e.target.value)}
         placeholder={t('input.text_placeholder')}
-        className="w-full h-32 resize-y rounded-xl border border-[#84cc16]/60 bg-[var(--card)] px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/50 transition-all duration-200 focus:outline-none focus:border-[#84cc16] focus:ring-1 focus:ring-[#84cc16]/10"
+        className="w-full h-32 resize-y rounded-xl border border-[#84cc16]/60 bg-[var(--card)] px-4 py-3 text-xs sm:text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/50 transition-all duration-200 focus:outline-none focus:border-[#84cc16] focus:ring-1 focus:ring-[#84cc16]/10"
       />
 
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-[var(--border)]">
+        <span className="text-xs sm:text-sm font-semibold text-[var(--border)]">
           {t('input.detected')} <span className="text-[var(--primary)]">{linkCount}</span> {t('input.links_count')}
         </span>
         <div className="flex gap-2">
