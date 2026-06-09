@@ -166,6 +166,14 @@
     ]
   },
   "footer": {
-    "made_by": "made ♡ by"
+    "brand": "Link Extractor",
+    "made_by": "made ♡ by",
+    "copyright": "© 2026 LinkExtractor. All rights reserved.",
+    "quick_links": "Quick Links",
+    "socials": "Socials",
+    "slogan": "Free · Client-side · Secure",
+    "lab": "Lab",
+    "drifter": "Drifter",
+    "sponsor": "Sponsor"
   }
 }

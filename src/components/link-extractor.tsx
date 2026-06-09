@@ -18,6 +18,7 @@ import { ActionBar } from "./action-bar";
 import { LinkCard } from "./link-card";
 import { DomainGroup } from "./domain-group";
 import { Progress } from "./progress";
+import { Footer } from "./footer";
 import {
 	IconLink,
 	IconCheckCircle,
@@ -660,26 +661,7 @@ export function LinkExtractor() {
 			</section>
 
 			{/* ─── FOOTER ─── */}
-			<footer className="bg-[#0f1b05] dark:bg-[#0a1a04] py-10">
-				<div className="mx-auto max-w-7xl px-4">
-					<div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-						<div className="flex items-center gap-2 text-sm font-bold text-white">
-							<IconLink className="h-4 w-4 text-[var(--primary)]" />
-							Link Extractor
-						</div>
-						<p className="text-xs font-semibold text-white/50">
-							{t("footer.made_by")}{" "}
-							<a
-								href="https://github.com/isixe"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="underline hover:text-[var(--primary)] transition-colors">
-								isixe
-							</a>
-						</p>
-					</div>
-				</div>
-			</footer>
+			<Footer />
 		</div>
 	);
 }

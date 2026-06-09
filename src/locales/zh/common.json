@@ -166,6 +166,14 @@
     ]
   },
   "footer": {
-    "made_by": "made ♡ by"
+    "brand": "Link Extractor",
+    "made_by": "made ♡ by",
+    "copyright": "© 2026 LinkExtractor. All rights reserved.",
+    "quick_links": "快速访问",
+    "socials": "社交媒体",
+    "slogan": "Free · Client-side · Secure",
+    "lab": "漂流纸船实验室",
+    "drifter": "漂流",
+    "sponsor": "赞助"
   }
 }
