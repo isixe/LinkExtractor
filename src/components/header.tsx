@@ -9,7 +9,11 @@ export function Header() {
 
 	return (
 		<header className="absolute w-full z-50 bg-transparent">
-			<div className="mx-auto flex h-16 max-w-7xl items-center justify-end px-4">
+			<div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
+				<div className="flex items-center gap-1">
+					<img src="/favicon.png" alt="favicon" className="w-10 h-10 md:w-12 md:h-12" />
+					<span className="hidden md:block text-xl font-bold pt-2">LinkExtractor</span>
+				</div>
 				<div className="flex items-center gap-2">
 					<LanguageToggle />
 					<a
