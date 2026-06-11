@@ -8,12 +8,14 @@ interface ActionBarProps {
   links: LinkInfo[]
   filter: FilterType
   canCheck: boolean
+  canRetryFailed: boolean
   checking: boolean
   onCheckAll: () => void
+  onRetryFailed: () => void
   onClear: () => void
 }
 
-export function ActionBar({ links, filter, canCheck, checking, onCheckAll, onClear }: ActionBarProps) {
+export function ActionBar({ links, filter, canCheck, canRetryFailed, checking, onCheckAll, onRetryFailed, onClear }: ActionBarProps) {
   const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
 
@@ -100,6 +102,16 @@ export function ActionBar({ links, filter, canCheck, checking, onCheckAll, onCle
             {t('action_bar.check_all')}
           </>
         )}
+      </Button>
+
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={onRetryFailed}
+        disabled={!canRetryFailed || checking}
+      >
+        <IconRefresh />
+        {t('action_bar.retry_failed')}
       </Button>
 
       <Button

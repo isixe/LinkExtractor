@@ -22,7 +22,8 @@
     "clear": "Clear",
     "extract": "Extract Links",
     "file_selected": "Selected: {{fileName}}, extracting links...",
-    "file_drag_hint": "Drag & drop a file, or click to upload",
+    "files_selected": "Selected {{count}} files: {{fileNames}}, extracting links...",
+    "file_drag_hint": "Drag & drop files, or click to upload",
     "file_formats": "Supports TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX"
   },
   "filter": {
@@ -39,6 +40,7 @@
     "csv": "CSV",
     "check_all": "Check All",
     "checking": "Checking...",
+    "retry_failed": "Retry Failed",
     "clear": "Clear"
   },
   "results": {

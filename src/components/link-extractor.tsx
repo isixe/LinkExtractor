@@ -121,7 +121,6 @@ export function LinkExtractor() {
 				prev.map((l) => {
 					if (l.id !== id) return l;
 					if (result.error === "checking") {
-						count++;
 						return { ...l, status: "checking" as const };
 					}
 					return {
@@ -136,8 +135,10 @@ export function LinkExtractor() {
 					};
 				}),
 			);
-			count++;
-			setCheckedCount(count);
+			if (result.error !== "checking") {
+				count++;
+				setCheckedCount(count);
+			}
 		});
 
 		setChecking(false);
@@ -181,6 +182,51 @@ export function LinkExtractor() {
 		},
 		[links],
 	);
+
+	const handleRetryFailed = useCallback(async () => {
+		const failedLinks = links.filter((l) => l.status === "error" || l.status === "timeout");
+		if (failedLinks.length === 0) return;
+
+		setChecking(true);
+		setCheckedCount(0);
+
+		const failedIds = new Set(failedLinks.map((l) => l.id));
+		const resetLinks = links.map((l) =>
+			failedIds.has(l.id)
+				? { ...l, status: "pending" as const, statusCode: undefined, errorMessage: undefined }
+				: l,
+		);
+		setLinks(resetLinks);
+
+		const toCheck = resetLinks.filter((l) => failedIds.has(l.id));
+		let count = 0;
+		await checkAllLinks(toCheck, (id, result) => {
+			setLinks((prev) =>
+				prev.map((l) => {
+					if (l.id !== id) return l;
+					if (result.error === "checking") {
+						return { ...l, status: "checking" as const };
+					}
+					return {
+						...l,
+						status: result.success
+							? ("success" as const)
+							: result.error === "timeout"
+								? ("timeout" as const)
+								: ("error" as const),
+						statusCode: result.statusCode,
+						errorMessage: result.success ? undefined : result.message,
+					};
+				}),
+			);
+			if (result.error !== "checking") {
+				count++;
+				setCheckedCount(count);
+			}
+		});
+
+		setChecking(false);
+	}, [links]);
 
 	const handleClear = useCallback(() => {
 		setLinks([]);
@@ -362,14 +408,16 @@ export function LinkExtractor() {
 
 					{/* Action bar + Filter */}
 					<div className="space-y-4 rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-4 shadow-lg sm:p-6">
-						<ActionBar
-							links={links}
-							filter={filter}
-							canCheck={counts.pending > 0}
-							checking={checking}
-							onCheckAll={handleCheckAll}
-							onClear={handleClear}
-						/>
+					<ActionBar
+						links={links}
+						filter={filter}
+						canCheck={counts.pending > 0}
+						canRetryFailed={counts.error > 0}
+						checking={checking}
+						onCheckAll={handleCheckAll}
+						onRetryFailed={handleRetryFailed}
+						onClear={handleClear}
+					/>
 						<FilterBar current={filter} onChange={setFilter} counts={counts} />
 					</div>
 

@@ -22,6 +22,7 @@
     "clear": "清空",
     "extract": "提取链接",
     "file_selected": "已选择: {{fileName}}，正在提取链接...",
+    "files_selected": "已选择 {{count}} 个文件: {{fileNames}}，正在提取链接...",
     "file_drag_hint": "拖拽文件到此处，或点击上传",
     "file_formats": "支持 TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX"
   },
@@ -39,6 +40,7 @@
     "csv": "CSV",
     "check_all": "检查全部",
     "checking": "检查中...",
+    "retry_failed": "重试失败",
     "clear": "清空"
   },
   "results": {

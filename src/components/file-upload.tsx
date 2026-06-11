@@ -10,7 +10,7 @@ interface FileUploadTabProps {
 export function FileUploadTab({ onExtract }: FileUploadTabProps) {
   const { t } = useTranslation()
   const [dragOver, setDragOver] = useState(false)
-  const [fileName, setFileName] = useState<string | null>(null)
+  const [fileNames, setFileNames] = useState<string[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleDragOver = (e: DragEvent) => {
@@ -20,23 +20,26 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
 
   const handleDragLeave = () => setDragOver(false)
 
-  const processFile = async (file: File) => {
-    if (!isSupportedFile(file)) return
-    const content = await readFileAsText(file)
-    setFileName(file.name)
-    onExtract(content)
+  const processFiles = async (files: FileList | File[]) => {
+    const supportedFiles = Array.from(files).filter(isSupportedFile)
+    if (supportedFiles.length === 0) return
+
+    const contents = await Promise.all(supportedFiles.map(readFileAsText))
+    const combinedContent = contents.join('\n')
+    setFileNames(supportedFiles.map(f => f.name))
+    onExtract(combinedContent)
   }
 
   const handleDrop = async (e: DragEvent) => {
     e.preventDefault()
     setDragOver(false)
-    const file = e.dataTransfer.files[0]
-    if (file) await processFile(file)
+    const files = e.dataTransfer.files
+    if (files.length > 0) await processFiles(files)
   }
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) await processFile(file)
+    const files = e.target.files
+    if (files && files.length > 0) await processFiles(files)
   }
 
   return (
@@ -55,13 +58,14 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
         ref={fileInputRef}
         type="file"
         className="hidden"
+        multiple
         accept=".txt,.json,.md,.html,.htm,.xml,.csv,.js,.ts,.jsx,.tsx"
         onChange={handleFileChange}
       />
       <IconUpload className="mx-auto mb-3 text-[var(--primary)]" />
       <p className="text-xs sm:text-sm font-semibold text-[var(--border)]">
-        {fileName
-          ? t('input.file_selected', { fileName })
+        {fileNames.length > 0
+          ? t('input.files_selected', { count: fileNames.length, fileNames: fileNames.join(', ') })
           : t('input.file_drag_hint')}
       </p>
       <p className="mt-1 text-[10px] sm:text-xs text-[var(--muted-foreground)]">
