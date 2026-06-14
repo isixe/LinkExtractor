@@ -177,5 +177,11 @@
     "lab": "Lab",
     "drifter": "Drifter",
     "sponsor": "Sponsor"
+  },
+  "link_utils": {
+    "request_timeout": "Request timeout",
+    "unknown_error": "Unknown error",
+    "file_read_failed": "File read failed",
+    "access_failed": "Access failed"
   }
 }

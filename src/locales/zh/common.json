@@ -177,5 +177,11 @@
     "lab": "漂流纸船实验室",
     "drifter": "漂流",
     "sponsor": "赞助"
+  },
+  "link_utils": {
+    "request_timeout": "请求超时",
+    "unknown_error": "未知错误",
+    "file_read_failed": "文件读取失败",
+    "access_failed": "访问失败"
   }
 }

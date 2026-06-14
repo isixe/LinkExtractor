@@ -1,3 +1,5 @@
+import i18n from '../locales/i18n'
+
 const urlRegex = /(https?):\/\/[-\u4e00-\u9fffA-Za-z0-9+&@#\/%?=~_|!:,.;]+[-\u4e00-\u9fffA-Za-z0-9+&@#\/%=~_|]/gi
 
 export function extractLinks(text: string): string[] {
@@ -45,10 +47,9 @@ const TIMEOUT_MS = 10000
 export async function checkSingleLink(url: string): Promise<CheckResult> {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
+  let statusCode = 0
 
   try {
-    let statusCode = 0
-
     // Step 1: Try a normal CORS GET — if allowed, we get real status + body
     try {
       const corsResp = await fetch(url, {
@@ -59,16 +60,20 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
     } catch {
       // CORS blocked — fall back to no-cors HEAD to confirm reachable
       try {
-        const opaqueResp = await fetch(url, {
+        await fetch(url, {
           method: 'HEAD',
           signal: controller.signal,
           mode: 'no-cors',
         })
         // no-cors HEAD succeeded (no throw) → resource is reachable
-        statusCode = 0
       } catch {
         // Even no-cors failed → resource likely unreachable
-        throw new Error('无法访问该链接')
+        return {
+          success: false,
+          error: 'error',
+          statusCode,
+          message: i18n.t('link_utils.access_failed'),
+        }
       }
     }
 
@@ -83,13 +88,15 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
       return {
         success: false,
         error: 'timeout',
-        message: '请求超时',
+        statusCode,
+        message: i18n.t('link_utils.request_timeout'),
       }
     }
     return {
       success: false,
       error: 'error',
-      message: err instanceof Error ? err.message : '未知错误',
+      statusCode,
+      message: err instanceof Error ? err.message : i18n.t('link_utils.unknown_error'),
     }
   }
 }
@@ -170,7 +177,7 @@ export function readFileAsText(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve(reader.result as string)
-    reader.onerror = () => reject(new Error('文件读取失败'))
+    reader.onerror = () => reject(new Error(i18n.t('link_utils.file_read_failed')))
     reader.readAsText(file)
   })
 }
