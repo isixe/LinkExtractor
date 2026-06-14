@@ -31,6 +31,8 @@ import {
 	IconRefresh,
 	IconArrowUp,
 } from "./icons";
+import { isUrlBlacklisted } from "../lib/blacklist-utils";
+import { BlacklistPanel } from "./blacklist-panel";
 
 export function LinkExtractor() {
 	const { t } = useTranslation();
@@ -65,13 +67,32 @@ export function LinkExtractor() {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [groupView, setGroupView] = useState(false);
 	const [copiedId, setCopiedId] = useState<string | null>(null);
+	const [showBlacklistPanel, setShowBlacklistPanel] = useState(false);
+	const [blacklistPatterns, setBlacklistPatterns] = useState<string[]>(() => {
+		try {
+			const saved = localStorage.getItem("link-extractor-blacklist");
+			return saved ? saved.split("\n").filter((p) => p.trim().length > 0) : [];
+		} catch {
+			return [];
+		}
+	});
+	const [blacklistEnabled, setBlacklistEnabled] = useState(() => {
+		try {
+			return localStorage.getItem("link-extractor-blacklist-enabled") !== "false";
+		} catch {
+			return true;
+		}
+	});
 
 	const rawLinkCount = links.length;
 
 	const filteredLinks = useMemo(() => {
 		const statusFiltered = filterLinks(links, filter);
-		return searchLinks(statusFiltered, searchQuery);
-	}, [links, filter, searchQuery]);
+		const blacklistFiltered = blacklistEnabled
+			? statusFiltered.filter((l) => !isUrlBlacklisted(l.url, blacklistPatterns))
+			: statusFiltered;
+		return searchLinks(blacklistFiltered, searchQuery);
+	}, [links, filter, searchQuery, blacklistEnabled, blacklistPatterns]);
 
 	const groupedLinks = useMemo(() => groupByDomain(filteredLinks), [filteredLinks]);
 
@@ -89,6 +110,26 @@ export function LinkExtractor() {
 		if (links.length === 0) return 0;
 		return Math.round((checkedCount / links.length) * 100);
 	}, [checkedCount, links.length]);
+
+	// Sync blacklist state to localStorage
+	useEffect(() => {
+		try {
+			localStorage.setItem("link-extractor-blacklist", blacklistPatterns.join("\n"));
+		} catch { /* noop */ }
+	}, [blacklistPatterns]);
+
+	useEffect(() => {
+		try {
+			localStorage.setItem("link-extractor-blacklist-enabled", String(blacklistEnabled));
+		} catch { /* noop */ }
+	}, [blacklistEnabled]);
+
+	// Listen for settings-open event from Header island
+	useEffect(() => {
+		const handler = () => setShowBlacklistPanel(true);
+		window.addEventListener("open-blacklist-settings", handler);
+		return () => window.removeEventListener("open-blacklist-settings", handler);
+	}, []);
 
 	const handleText = useCallback((text: string) => {
 		const urls = extractLinks(text);
@@ -435,8 +476,8 @@ export function LinkExtractor() {
 					)}
 
 					{/* Search + Group toggle */}
-					<div className="flex items-center gap-2">
-						<div className="relative flex-1">
+					<div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+						<div className="relative sm:flex-1">
 							<svg
 								className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]"
 								width="16"
@@ -458,6 +499,28 @@ export function LinkExtractor() {
 								className="w-full rounded-xl border border-[var(--primary-light)] bg-[var(--card)] py-2 pl-9 pr-4 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/50 transition-all duration-200 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)]/10"
 							/>
 						</div>
+						<div className="flex items-center gap-2">
+						{blacklistPatterns.length > 0 && (
+							<div className="inline-flex items-center gap-2 rounded-xl border border-[var(--primary-light)] bg-[var(--card)] px-3 py-2">
+								<span className="text-sm font-semibold text-[var(--muted-foreground)] select-none">
+									{t("blacklist.label")}
+								</span>
+								<button
+									role="switch"
+									aria-checked={blacklistEnabled}
+									onClick={() => setBlacklistEnabled(!blacklistEnabled)}
+									className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors duration-200 ${
+										blacklistEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
+									}`}
+								>
+									<span
+										className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform duration-200 ${
+											blacklistEnabled ? 'translate-x-[18px]' : 'translate-x-[3px]'
+										}`}
+									/>
+								</button>
+							</div>
+						)}
 						<select
 							value={groupView ? "group" : "flat"}
 							onChange={(e) => setGroupView(e.target.value === "group")}
@@ -469,6 +532,7 @@ export function LinkExtractor() {
 								{t("results.group_view")}
 							</option>
 						</select>
+						</div>
 					</div>
 
 					{/* Link list */}
@@ -710,6 +774,16 @@ export function LinkExtractor() {
 
 			{/* ─── FOOTER ─── */}
 			<Footer />
+
+			{/* ─── Blacklist Settings Panel ─── */}
+			<BlacklistPanel
+				open={showBlacklistPanel}
+				onClose={() => setShowBlacklistPanel(false)}
+				patterns={blacklistPatterns}
+				onPatternsChange={setBlacklistPatterns}
+				enabled={blacklistEnabled}
+				onEnabledChange={setBlacklistEnabled}
+			/>
 		</div>
 	);
 }

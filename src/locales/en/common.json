@@ -1,6 +1,7 @@
 {
   "header": {
-    "github_title": "View source on GitHub"
+    "github_title": "View source on GitHub",
+    "settings_title": "Blacklist Settings"
   },
   "hero": {
     "badge": "Free Online Tool · No Registration",
@@ -183,5 +184,15 @@
     "unknown_error": "Unknown error",
     "file_read_failed": "File read failed",
     "access_failed": "Access failed"
+  },
+  "blacklist": {
+    "title": "Blacklist Settings",
+    "description": "Add URL patterns to exclude from results. One per line, supports * wildcards.",
+    "enable_label": "Enable Blacklist",
+    "placeholder": "*.example.com/*\n*doubleclick.net/*\nspam-tracker.com",
+    "close": "Close",
+    "confirm": "Confirm",
+    "label": "Blacklist",
+    "hint": "{{count}} blocked by blacklist"
   }
 }

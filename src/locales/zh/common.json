@@ -1,6 +1,7 @@
 {
   "header": {
-    "github_title": "在 GitHub 上查看源码"
+    "github_title": "在 GitHub 上查看源码",
+    "settings_title": "黑名单设置"
   },
   "hero": {
     "badge": "免费在线工具 · 无需注册",
@@ -183,5 +184,15 @@
     "unknown_error": "未知错误",
     "file_read_failed": "文件读取失败",
     "access_failed": "访问失败"
+  },
+  "blacklist": {
+    "title": "黑名单设置",
+    "description": "添加需要排除的 URL 规则，每行一条，支持 * 通配符",
+    "enable_label": "启用黑名单",
+    "placeholder": "*.example.com/*\n*doubleclick.net/*\nspam-tracker.com",
+    "close": "关闭",
+    "confirm": "确认",
+    "label": "黑名单",
+    "hint": "{{count}} 个被黑名单屏蔽"
   }
 }

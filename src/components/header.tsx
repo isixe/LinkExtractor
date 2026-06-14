@@ -1,11 +1,23 @@
 import { useTranslation } from "react-i18next";
 import "../locales/i18n";
-import { IconGithub } from "../assets/icons";
+import { IconGithub, IconSettings } from "../assets/icons";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 
-export function Header() {
+interface HeaderProps {
+	onOpenSettings?: () => void;
+}
+
+export function Header({ onOpenSettings }: HeaderProps) {
 	const { t } = useTranslation();
+
+	const handleOpenSettings = () => {
+		if (onOpenSettings) {
+			onOpenSettings();
+		} else {
+			window.dispatchEvent(new CustomEvent("open-blacklist-settings"));
+		}
+	};
 
 	return (
 		<header className="absolute w-full z-50 bg-transparent">
@@ -16,6 +28,13 @@ export function Header() {
 				</div>
 				<div className="flex items-center gap-2">
 					<LanguageToggle />
+					<button
+						onClick={handleOpenSettings}
+						className="flex h-9 w-9 items-center justify-center rounded-full text-[var(--foreground)] hover:bg-white/20 transition-colors active:scale-95"
+						aria-label="Settings"
+						title={t("header.settings_title")}>
+						<IconSettings className="h-5 w-5" />
+					</button>
 					<a
 						href="https://github.com/isixe/LinkExtractor"
 						target="_blank"

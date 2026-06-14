@@ -21,4 +21,5 @@
   IconActivity,
   IconShield,
   IconChevronDown,
+  IconSettings,
 } from '../assets/icons'
