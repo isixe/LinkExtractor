@@ -33,6 +33,7 @@ import {
 } from "./icons";
 import { isUrlBlacklisted } from "../lib/blacklist-utils";
 import { BlacklistPanel } from "./blacklist-panel";
+import { CustomSelect, type SelectOption } from "./custom-select";
 
 export function LinkExtractor() {
 	const { t } = useTranslation();
@@ -274,6 +275,11 @@ export function LinkExtractor() {
 		setCheckedCount(0);
 		setFilter("all");
 	}, []);
+
+	const viewOptions: SelectOption[] = [
+		{ value: "flat", label: t("results.flat_view") },
+		{ value: "group", label: t("results.group_view") },
+	];
 
 	return (
 		<div className="min-h-screen bg-[var(--background)]">
@@ -521,17 +527,11 @@ export function LinkExtractor() {
 								</button>
 							</div>
 						)}
-						<select
+						<CustomSelect
 							value={groupView ? "group" : "flat"}
-							onChange={(e) => setGroupView(e.target.value === "group")}
-							className="appearance-none rounded-xl border border-[var(--primary-light)] bg-[var(--card)] px-3 py-2 pr-8 text-sm font-semibold text-[var(--foreground)] transition-all duration-200 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)]/10">
-							<option value="flat" className="bg-[var(--card)]">
-								{t("results.flat_view")}
-							</option>
-							<option value="group" className="bg-[var(--card)]">
-								{t("results.group_view")}
-							</option>
-						</select>
+							onChange={(value) => setGroupView(value === "group")}
+							options={viewOptions}
+						/>
 						</div>
 					</div>
 
