@@ -1,39 +1,44 @@
 ---
-import "../styles/global.css";
-const title = "Link Extractor — Free Online Link Extraction Tool";
-const keyword = "link extractor, link checker, link tool, free online url extractor, url extractor, extract file link";
+import "../styles/global.css"
+const title = "Link Extractor — Free Online Link Extraction Tool"
+const keyword =
+  "link extractor, link checker, link tool, free online url extractor, url extractor, extract file link"
 const description =
-	"Free online link extraction tool. Batch extract URLs from text or files, validate links, export to TXT/JSON/CSV. Fully client-side, no data uploaded to servers.";
-const url = "https://link-extractor.itea.dev";
+  "Free online link extraction tool. Batch extract URLs from text or files, validate links, export to TXT/JSON/CSV. Fully client-side, no data uploaded to servers."
+const url = "https://link-extractor.itea.dev"
 ---
 
 <!doctype html>
 <html lang="zh-CN">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" href="/favicon.ico" />
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<meta name="keywords" content={keyword} />
-		<meta name="robots" content="index, follow" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keyword} />
+    <meta name="robots" content="index, follow" />
 
-		<!-- Open Graph -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={url} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={`${url}/og-image.png`} />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${url}/og-image.png`} />
 
-		<!-- Twitter Card -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 
-		<link rel="icon" href="/favicon.ico" />
-		<script src="https://analytics.itea.dev/tracker.min.js" id="analytics" data-website-id="link-extractor"></script>
-	</head>
-	<body class="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-		<slot />
-	</body>
+    <link rel="icon" href="/favicon.ico" />
+    <script
+      is:inline
+      src="https://analytics.itea.dev/tracker.min.js"
+      id="analytics"
+      data-website-id="link-extractor"></script>
+  </head>
+  <body class="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <slot />
+  </body>
 </html>
