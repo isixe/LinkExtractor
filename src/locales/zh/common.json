@@ -22,8 +22,10 @@
     "links_count": "个链接",
     "clear": "清空",
     "extract": "提取链接",
-    "file_selected": "已选择: {{fileName}}，正在提取链接...",
-    "files_selected": "已选择 {{count}} 个文件: {{fileNames}}，正在提取链接...",
+    "file_selected": "已选择: {{fileName}}",
+    "file_selected_done": "已选择: {{fileName}}，已提取 {{count}} 个链接",
+    "files_selected": "已选择 {{fileCount}} 个文件: {{fileNames}}",
+    "files_selected_done": "已选择 {{fileCount}} 个文件: {{fileNames}}，已提取 {{count}} 个链接",
     "file_drag_hint": "拖拽文件到此处，或点击上传",
     "file_formats": "支持 TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX, YAML",
     "no_links_found": "上传的文件中未找到链接，请检查文件内容后重试。"

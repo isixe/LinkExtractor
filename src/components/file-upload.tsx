@@ -4,13 +4,14 @@ import { IconUpload } from "./icons"
 import { isSupportedFile, readFileAsText } from "../lib/link-utils"
 
 interface FileUploadTabProps {
-  onExtract: (text: string) => void
+  onExtract: (text: string) => number
 }
 
 export function FileUploadTab({ onExtract }: FileUploadTabProps) {
   const { t } = useTranslation()
   const [dragOver, setDragOver] = useState(false)
   const [fileNames, setFileNames] = useState<string[]>([])
+  const [extractedCount, setExtractedCount] = useState<number | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleDragOver = (e: DragEvent) => {
@@ -27,7 +28,8 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
     const contents = await Promise.all(supportedFiles.map(readFileAsText))
     const combinedContent = contents.join("\n")
     setFileNames(supportedFiles.map((f) => f.name))
-    onExtract(combinedContent)
+    const linkCount = onExtract(combinedContent)
+    setExtractedCount(linkCount)
   }
 
   const handleDrop = async (e: DragEvent) => {
@@ -66,7 +68,23 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
       <IconUpload className="mx-auto mb-3 text-[var(--primary)]" />
       <p className="text-xs sm:text-sm font-semibold text-[var(--border)]">
         {fileNames.length > 0
-          ? t("input.files_selected", { count: fileNames.length, fileNames: fileNames.join(", ") })
+          ? extractedCount !== null
+            ? fileNames.length === 1
+              ? t("input.file_selected_done", {
+                  fileName: fileNames[0],
+                  count: extractedCount,
+                })
+              : t("input.files_selected_done", {
+                  fileCount: fileNames.length,
+                  fileNames: fileNames.join(", "),
+                  count: extractedCount,
+                })
+            : fileNames.length === 1
+              ? t("input.file_selected", { fileName: fileNames[0] })
+              : t("input.files_selected", {
+                  fileCount: fileNames.length,
+                  fileNames: fileNames.join(", "),
+                })
           : t("input.file_drag_hint")}
       </p>
       <p className="mt-1 text-[10px] sm:text-xs text-[var(--muted-foreground)]">

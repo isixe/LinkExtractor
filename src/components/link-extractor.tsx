@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react"
+import { useState, useMemo, useCallback, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import "../locales/i18n"
 import {
@@ -70,6 +70,7 @@ export function LinkExtractor() {
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [showBlacklistPanel, setShowBlacklistPanel] = useState(false)
   const [noLinksHint, setNoLinksHint] = useState(false)
+  const resultsRef = useRef<HTMLDivElement>(null)
   const [blacklistPatterns, setBlacklistPatterns] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem("link-extractor-blacklist")
@@ -144,6 +145,12 @@ export function LinkExtractor() {
     setCheckedCount(0)
     setFilter("all")
     setNoLinksHint(urls.length === 0)
+    if (urls.length > 0) {
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+      }, 100)
+    }
+    return urls.length
   }, [])
 
   const handleCopyLinks = useCallback(async (label: string, urls: string[]) => {
@@ -442,7 +449,10 @@ export function LinkExtractor() {
           {/* Tabs */}
           <div className="flex border-b border-[var(--primary-light)]">
             <button
-              onClick={() => setInputTab("text")}
+              onClick={() => {
+                setInputTab("text")
+                if (links.length > 0) handleClear()
+              }}
               className={`flex-1 px-4 py-4 text-sm font-semibold transition-all duration-200 rounded-tl-2xl ${
                 inputTab === "text"
                   ? "bg-[var(--primary)] text-white"
@@ -452,7 +462,10 @@ export function LinkExtractor() {
               {t("input.text_tab")}
             </button>
             <button
-              onClick={() => setInputTab("file")}
+              onClick={() => {
+                setInputTab("file")
+                if (links.length > 0) handleClear()
+              }}
               className={`flex-1 px-4 py-4 text-sm font-semibold transition-all duration-200 rounded-tr-2xl ${
                 inputTab === "file"
                   ? "bg-[var(--primary)] text-white"
@@ -483,7 +496,7 @@ export function LinkExtractor() {
 
       {/* ── RESULTS ── */}
       {links.length > 0 && (
-        <div className="mx-auto mt-10 max-w-4xl space-y-4 px-4 pb-20">
+        <div ref={resultsRef} className="mx-auto mt-10 max-w-4xl space-y-4 px-4 pb-20">
           {/* Section label */}
           <div className="inline-flex items-center gap-2 rounded-full bg-[var(--primary-light)] px-4 py-1.5">
             <span className="h-2 w-2 rounded-full bg-white dark:bg-[var(--primary)]" />

@@ -22,8 +22,10 @@
     "links_count": "links",
     "clear": "Clear",
     "extract": "Extract Links",
-    "file_selected": "Selected: {{fileName}}, extracting links...",
-    "files_selected": "Selected {{count}} files: {{fileNames}}, extracting links...",
+    "file_selected": "Selected: {{fileName}}",
+    "file_selected_done": "Selected: {{fileName}}, extracted {{count}} links",
+    "files_selected": "Selected {{fileCount}} files: {{fileNames}}",
+    "files_selected_done": "Selected {{fileCount}} files: {{fileNames}}, extracted {{count}} links",
     "file_drag_hint": "Drag & drop files, or click to upload",
     "file_formats": "Supports TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX, YAML",
     "no_links_found": "No links found in the uploaded file. Please check the file content and try again."
