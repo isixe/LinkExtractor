@@ -70,6 +70,7 @@ export function LinkExtractor() {
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [showBlacklistPanel, setShowBlacklistPanel] = useState(false)
   const [noLinksHint, setNoLinksHint] = useState(false)
+  const [clearKey, setClearKey] = useState(0)
   const resultsRef = useRef<HTMLDivElement>(null)
   const [blacklistPatterns, setBlacklistPatterns] = useState<string[]>(() => {
     try {
@@ -287,6 +288,9 @@ export function LinkExtractor() {
     setLinks([])
     setCheckedCount(0)
     setFilter("all")
+    setSearchQuery("")
+    setNoLinksHint(false)
+    setClearKey((k) => k + 1)
   }, [])
 
   const viewOptions: SelectOption[] = [
@@ -477,9 +481,9 @@ export function LinkExtractor() {
           </div>
           <div className="p-6 sm:p-8">
             {inputTab === "text" ? (
-              <TextInput onExtract={handleText} linkCount={rawLinkCount} />
+              <TextInput key={clearKey} onExtract={handleText} linkCount={rawLinkCount} />
             ) : (
-              <FileUploadTab onExtract={handleText} />
+              <FileUploadTab key={clearKey} onExtract={handleText} />
             )}
           </div>
         </div>
