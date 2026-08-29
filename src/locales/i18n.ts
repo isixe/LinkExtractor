@@ -1,11 +1,11 @@
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import en from './en/common.json'
-import zh from './zh/common.json'
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
+import LanguageDetector from "i18next-browser-languagedetector"
+import en from "./en/common.json"
+import zh from "./zh/common.json"
 
-const SUPPORTED_LANGS = ['en', 'zh']
-const DEFAULT_LANG = 'en'
+const SUPPORTED_LANGS = ["en", "zh"]
+const DEFAULT_LANG = "en"
 
 i18n
   .use(LanguageDetector)
@@ -16,23 +16,22 @@ i18n
       zh: { common: zh },
     },
     fallbackLng: DEFAULT_LANG,
-    defaultNS: 'common',
-    ns: ['common'],
+    defaultNS: "common",
+    ns: ["common"],
     interpolation: {
       escapeValue: false,
     },
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
-      lookupLocalStorage: 'i18nextLng',
-      caches: ['localStorage'],
-      checkWhitelist: true,
+      order: ["localStorage", "navigator", "htmlTag"],
+      lookupLocalStorage: "i18nextLng",
+      caches: ["localStorage"],
     },
     returnObjects: true,
   })
 
 const detected = i18n.language
 if (detected && !SUPPORTED_LANGS.includes(detected)) {
-  const base = detected.split('-')[0]
+  const base = detected.split("-")[0]
   i18n.changeLanguage(SUPPORTED_LANGS.includes(base) ? base : DEFAULT_LANG)
 }
 
