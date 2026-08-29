@@ -1,7 +1,7 @@
-import { useState, useRef, type ChangeEvent, type DragEvent } from 'react'
-import { useTranslation } from 'react-i18next'
-import { IconUpload } from './icons'
-import { isSupportedFile, readFileAsText } from '../lib/link-utils'
+import { useState, useRef, type ChangeEvent, type DragEvent } from "react"
+import { useTranslation } from "react-i18next"
+import { IconUpload } from "./icons"
+import { isSupportedFile, readFileAsText } from "../lib/link-utils"
 
 interface FileUploadTabProps {
   onExtract: (text: string) => void
@@ -25,8 +25,8 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
     if (supportedFiles.length === 0) return
 
     const contents = await Promise.all(supportedFiles.map(readFileAsText))
-    const combinedContent = contents.join('\n')
-    setFileNames(supportedFiles.map(f => f.name))
+    const combinedContent = contents.join("\n")
+    setFileNames(supportedFiles.map((f) => f.name))
     onExtract(combinedContent)
   }
 
@@ -45,9 +45,10 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
   return (
     <div
       className={`cursor-pointer rounded-2xl border border-dashed border-[#84cc16]/60 p-8 text-center transition-all duration-200
-        ${dragOver
-          ? 'border-[#84cc16] bg-[#84cc16]/10 shadow-[0_2px_12px_-4px_rgba(132,204,22,0.2)]'
-          : 'bg-[var(--card)] shadow-sm hover:shadow-md hover:-translate-y-0.5'
+        ${
+          dragOver
+            ? "border-[#84cc16] bg-[#84cc16]/10 shadow-[0_2px_12px_-4px_rgba(132,204,22,0.2)]"
+            : "bg-[var(--card)] shadow-sm hover:shadow-md hover:-translate-y-0.5"
         }`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
@@ -65,11 +66,11 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
       <IconUpload className="mx-auto mb-3 text-[var(--primary)]" />
       <p className="text-xs sm:text-sm font-semibold text-[var(--border)]">
         {fileNames.length > 0
-          ? t('input.files_selected', { count: fileNames.length, fileNames: fileNames.join(', ') })
-          : t('input.file_drag_hint')}
+          ? t("input.files_selected", { count: fileNames.length, fileNames: fileNames.join(", ") })
+          : t("input.file_drag_hint")}
       </p>
       <p className="mt-1 text-[10px] sm:text-xs text-[var(--muted-foreground)]">
-        {t('input.file_formats')}
+        {t("input.file_formats")}
       </p>
     </div>
   )

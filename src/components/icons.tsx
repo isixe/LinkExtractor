@@ -22,4 +22,4 @@
   IconShield,
   IconChevronDown,
   IconSettings,
-} from '../assets/icons'
+} from "../assets/icons"
