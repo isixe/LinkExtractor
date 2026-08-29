@@ -291,6 +291,9 @@ export function LinkExtractor() {
     setSearchQuery("")
     setNoLinksHint(false)
     setClearKey((k) => k + 1)
+    setTimeout(() => {
+      document.getElementById("input-card")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 100)
   }, [])
 
   const viewOptions: SelectOption[] = [
