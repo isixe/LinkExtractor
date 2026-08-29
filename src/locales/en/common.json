@@ -25,7 +25,8 @@
     "file_selected": "Selected: {{fileName}}, extracting links...",
     "files_selected": "Selected {{count}} files: {{fileNames}}, extracting links...",
     "file_drag_hint": "Drag & drop files, or click to upload",
-    "file_formats": "Supports TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX"
+    "file_formats": "Supports TXT, JSON, MD, HTML, XML, CSV, JS, TS, JSX, TSX, YAML",
+    "no_links_found": "No links found in the uploaded file. Please check the file content and try again."
   },
   "filter": {
     "all": "All",

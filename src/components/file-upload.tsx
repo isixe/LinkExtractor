@@ -59,7 +59,7 @@ export function FileUploadTab({ onExtract }: FileUploadTabProps) {
         type="file"
         className="hidden"
         multiple
-        accept=".txt,.json,.md,.html,.htm,.xml,.csv,.js,.ts,.jsx,.tsx"
+        accept=".txt,.json,.md,.html,.htm,.xml,.csv,.js,.ts,.jsx,.tsx,.yml,.yaml"
         onChange={handleFileChange}
       />
       <IconUpload className="mx-auto mb-3 text-[var(--primary)]" />

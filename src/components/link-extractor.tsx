@@ -69,6 +69,7 @@ export function LinkExtractor() {
 	const [groupView, setGroupView] = useState(false);
 	const [copiedId, setCopiedId] = useState<string | null>(null);
 	const [showBlacklistPanel, setShowBlacklistPanel] = useState(false);
+	const [noLinksHint, setNoLinksHint] = useState(false);
 	const [blacklistPatterns, setBlacklistPatterns] = useState<string[]>(() => {
 		try {
 			const saved = localStorage.getItem("link-extractor-blacklist");
@@ -116,13 +117,17 @@ export function LinkExtractor() {
 	useEffect(() => {
 		try {
 			localStorage.setItem("link-extractor-blacklist", blacklistPatterns.join("\n"));
-		} catch { /* noop */ }
+		} catch {
+			/* noop */
+		}
 	}, [blacklistPatterns]);
 
 	useEffect(() => {
 		try {
 			localStorage.setItem("link-extractor-blacklist-enabled", String(blacklistEnabled));
-		} catch { /* noop */ }
+		} catch {
+			/* noop */
+		}
 	}, [blacklistEnabled]);
 
 	// Listen for settings-open event from Header island
@@ -138,6 +143,7 @@ export function LinkExtractor() {
 		setLinks(newLinks);
 		setCheckedCount(0);
 		setFilter("all");
+		setNoLinksHint(urls.length === 0);
 	}, []);
 
 	const handleCopyLinks = useCallback(async (label: string, urls: string[]) => {
@@ -234,9 +240,7 @@ export function LinkExtractor() {
 
 		const failedIds = new Set(failedLinks.map((l) => l.id));
 		const resetLinks = links.map((l) =>
-			failedIds.has(l.id)
-				? { ...l, status: "pending" as const, statusCode: undefined, errorMessage: undefined }
-				: l,
+			failedIds.has(l.id) ? { ...l, status: "pending" as const, statusCode: undefined, errorMessage: undefined } : l,
 		);
 		setLinks(resetLinks);
 
@@ -444,6 +448,15 @@ export function LinkExtractor() {
 				</div>
 			</div>
 
+			{/* ── No Links Hint ── */}
+			{noLinksHint && (
+				<div className="mx-auto max-w-4xl px-4 -mt-4 mb-14">
+					<div className="rounded-xl border border-amber-300/60 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 text-sm font-medium text-amber-700 dark:text-amber-300">
+						{t("input.no_links_found")}
+					</div>
+				</div>
+			)}
+
 			{/* ── RESULTS ── */}
 			{links.length > 0 && (
 				<div className="mx-auto mt-10 max-w-4xl space-y-4 px-4 pb-20">
@@ -455,16 +468,16 @@ export function LinkExtractor() {
 
 					{/* Action bar + Filter */}
 					<div className="space-y-4 rounded-2xl border border-[var(--primary-light)] bg-[var(--card)] p-4 shadow-lg sm:p-6">
-					<ActionBar
-						links={links}
-						filter={filter}
-						canCheck={counts.pending > 0}
-						canRetryFailed={counts.error > 0}
-						checking={checking}
-						onCheckAll={handleCheckAll}
-						onRetryFailed={handleRetryFailed}
-						onClear={handleClear}
-					/>
+						<ActionBar
+							links={links}
+							filter={filter}
+							canCheck={counts.pending > 0}
+							canRetryFailed={counts.error > 0}
+							checking={checking}
+							onCheckAll={handleCheckAll}
+							onRetryFailed={handleRetryFailed}
+							onClear={handleClear}
+						/>
 						<FilterBar current={filter} onChange={setFilter} counts={counts} />
 					</div>
 
@@ -506,32 +519,31 @@ export function LinkExtractor() {
 							/>
 						</div>
 						<div className="flex items-center gap-2">
-						{blacklistPatterns.length > 0 && (
-							<div className="inline-flex items-center gap-2 rounded-xl border border-[var(--primary-light)] bg-[var(--card)] px-3 py-2">
-								<span className="text-sm font-semibold text-[var(--muted-foreground)] select-none">
-									{t("blacklist.label")}
-								</span>
-								<button
-									role="switch"
-									aria-checked={blacklistEnabled}
-									onClick={() => setBlacklistEnabled(!blacklistEnabled)}
-									className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors duration-200 ${
-										blacklistEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
-									}`}
-								>
-									<span
-										className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform duration-200 ${
-											blacklistEnabled ? 'translate-x-[18px]' : 'translate-x-[3px]'
-										}`}
-									/>
-								</button>
-							</div>
-						)}
-						<CustomSelect
-							value={groupView ? "group" : "flat"}
-							onChange={(value) => setGroupView(value === "group")}
-							options={viewOptions}
-						/>
+							{blacklistPatterns.length > 0 && (
+								<div className="inline-flex items-center gap-2 rounded-xl border border-[var(--primary-light)] bg-[var(--card)] px-3 py-2">
+									<span className="text-sm font-semibold text-[var(--muted-foreground)] select-none">
+										{t("blacklist.label")}
+									</span>
+									<button
+										role="switch"
+										aria-checked={blacklistEnabled}
+										onClick={() => setBlacklistEnabled(!blacklistEnabled)}
+										className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors duration-200 ${
+											blacklistEnabled ? "bg-[var(--primary)]" : "bg-[var(--border)]"
+										}`}>
+										<span
+											className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform duration-200 ${
+												blacklistEnabled ? "translate-x-[18px]" : "translate-x-[3px]"
+											}`}
+										/>
+									</button>
+								</div>
+							)}
+							<CustomSelect
+								value={groupView ? "group" : "flat"}
+								onChange={(value) => setGroupView(value === "group")}
+								options={viewOptions}
+							/>
 						</div>
 					</div>
 
