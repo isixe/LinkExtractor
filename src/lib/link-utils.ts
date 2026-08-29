@@ -1,6 +1,7 @@
-import i18n from '../locales/i18n'
+import i18n from "../locales/i18n"
 
-const urlRegex = /(https?):\/\/[-\u4e00-\u9fffA-Za-z0-9+&@#\/%?=~_|!:,.;]+[-\u4e00-\u9fffA-Za-z0-9+&@#\/%=~_|]/gi
+const urlRegex =
+  /(https?):\/\/[-\u4e00-\u9fffA-Za-z0-9+&@#/%?=~_|!:,.;]+[-\u4e00-\u9fffA-Za-z0-9+&@#/%=~_|]/gi
 
 export function extractLinks(text: string): string[] {
   const matches = text.match(urlRegex)
@@ -11,8 +12,8 @@ export function extractLinks(text: string): string[] {
 
 function cleanUrl(url: string): string | null {
   let cleaned = url.trim()
-  cleaned = cleaned.replace(/[.,;:!?）\)]+$/, '')
-  cleaned = cleaned.replace(/[.,;:!?）\)]+$/, '')
+  cleaned = cleaned.replace(/[.,;:!?）)]+$/, "")
+  cleaned = cleaned.replace(/[.,;:!?）)]+$/, "")
   if (cleaned.length <= 10) return null
   try {
     new URL(cleaned)
@@ -22,21 +23,25 @@ function cleanUrl(url: string): string | null {
     // strip one char at a time until it parses or string is too short.
     while (cleaned.length > 10) {
       cleaned = cleaned.slice(0, -1)
-      try { new URL(cleaned); return cleaned } catch { }
+      try {
+        new URL(cleaned)
+        return cleaned
+      } catch {
+        // ignore parse errors during cleanup
+      }
     }
     return null
   }
 }
 
-
 export function generateId(): string {
-  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
     return crypto.randomUUID()
   }
   // Fallback for environments without crypto.randomUUID
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0
-    const v = c === 'x' ? r : (r & 0x3) | 0x8
+    const v = c === "x" ? r : (r & 0x3) | 0x8
     return v.toString(16)
   })
 }
@@ -45,7 +50,7 @@ export function createLinkInfo(url: string): LinkInfo {
   return {
     id: generateId(),
     url,
-    status: 'pending',
+    status: "pending",
   }
 }
 
@@ -61,7 +66,7 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
     // Step 1: Try a normal CORS GET — if allowed, we get real status + body
     try {
       const corsResp = await fetch(url, {
-        method: 'GET',
+        method: "GET",
         signal: controller.signal,
       })
       statusCode = corsResp.status
@@ -69,18 +74,18 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
       // CORS blocked — fall back to no-cors HEAD to confirm reachable
       try {
         await fetch(url, {
-          method: 'HEAD',
+          method: "HEAD",
           signal: controller.signal,
-          mode: 'no-cors',
+          mode: "no-cors",
         })
         // no-cors HEAD succeeded (no throw) → resource is reachable
       } catch {
         // Even no-cors failed → resource likely unreachable
         return {
           success: false,
-          error: 'error',
+          error: "error",
           statusCode,
-          message: i18n.t('link_utils.access_failed'),
+          message: i18n.t("link_utils.access_failed"),
         }
       }
     }
@@ -92,67 +97,59 @@ export async function checkSingleLink(url: string): Promise<CheckResult> {
     }
   } catch (err: unknown) {
     clearTimeout(timer)
-    if (err instanceof DOMException && err.name === 'AbortError') {
+    if (err instanceof DOMException && err.name === "AbortError") {
       return {
         success: false,
-        error: 'timeout',
+        error: "timeout",
         statusCode,
-        message: i18n.t('link_utils.request_timeout'),
+        message: i18n.t("link_utils.request_timeout"),
       }
     }
     return {
       success: false,
-      error: 'error',
+      error: "error",
       statusCode,
-      message: err instanceof Error ? err.message : i18n.t('link_utils.unknown_error'),
+      message: err instanceof Error ? err.message : i18n.t("link_utils.unknown_error"),
     }
   }
 }
 
 export async function checkAllLinks(
   links: LinkInfo[],
-  onProgress: (id: string, result: CheckResult) => void
+  onProgress: (id: string, result: CheckResult) => void,
 ): Promise<void> {
-  const pending = links.filter(l => l.status === 'pending')
+  const pending = links.filter((l) => l.status === "pending")
 
   for (let i = 0; i < pending.length; i += CONCURRENCY) {
     const batch = pending.slice(i, i + CONCURRENCY)
     await Promise.all(
-      batch.map(async link => {
-        onProgress(link.id, { success: false, error: 'checking' })
+      batch.map(async (link) => {
+        onProgress(link.id, { success: false, error: "checking" })
         const result = await checkSingleLink(link.url)
         onProgress(link.id, result)
-      })
+      }),
     )
   }
 }
 
-export function formatLinksForExport(
-  links: LinkInfo[],
-  format: 'txt' | 'json' | 'csv'
-): string {
+export function formatLinksForExport(links: LinkInfo[], format: "txt" | "json" | "csv"): string {
   switch (format) {
-    case 'txt':
-      return links.map(l => l.url).join('\n')
-    case 'json':
+    case "txt":
+      return links.map((l) => l.url).join("\n")
+    case "json":
       return JSON.stringify(links, null, 2)
-    case 'csv':
-      const header = 'URL,Status,StatusCode'
-      const rows = links.map(l =>
-        [
-          l.url,
-          l.status,
-          l.statusCode ?? '',
-        ].join(',')
-      )
-      return [header, ...rows].join('\n')
+    case "csv": {
+      const header = "URL,Status,StatusCode"
+      const rows = links.map((l) => [l.url, l.status, l.statusCode ?? ""].join(","))
+      return [header, ...rows].join("\n")
+    }
   }
 }
 
 export function downloadFile(content: string, filename: string, mime: string) {
   const blob = new Blob([content], { type: mime })
   const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
+  const a = document.createElement("a")
   a.href = url
   a.download = filename
   a.click()
@@ -170,14 +167,14 @@ export async function copyToClipboard(text: string): Promise<boolean> {
 
 export function filterLinks(links: LinkInfo[], filter: FilterType): LinkInfo[] {
   switch (filter) {
-    case 'all':
+    case "all":
       return links
-    case 'success':
-      return links.filter(l => l.status === 'success')
-    case 'error':
-      return links.filter(l => l.status === 'error' || l.status === 'timeout')
-    case 'pending':
-      return links.filter(l => l.status === 'pending' || l.status === 'checking')
+    case "success":
+      return links.filter((l) => l.status === "success")
+    case "error":
+      return links.filter((l) => l.status === "error" || l.status === "timeout")
+    case "pending":
+      return links.filter((l) => l.status === "pending" || l.status === "checking")
   }
 }
 
@@ -185,7 +182,7 @@ export function readFileAsText(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve(reader.result as string)
-    reader.onerror = () => reject(new Error(i18n.t('link_utils.file_read_failed')))
+    reader.onerror = () => reject(new Error(i18n.t("link_utils.file_read_failed")))
     reader.readAsText(file)
   })
 }
@@ -214,16 +211,26 @@ export function groupByDomain(links: LinkInfo[]): DomainGroup[] {
 export function searchLinks(links: LinkInfo[], query: string): LinkInfo[] {
   if (!query.trim()) return links
   const q = query.toLowerCase()
-  return links.filter(l => l.url.toLowerCase().includes(q))
+  return links.filter((l) => l.url.toLowerCase().includes(q))
 }
 
 const SUPPORTED_EXTENSIONS = [
-  '.txt', '.json', '.md', '.html', '.htm', '.xml', '.csv',
-  '.js', '.ts', '.jsx', '.tsx',
-  '.yml', '.yaml',
+  ".txt",
+  ".json",
+  ".md",
+  ".html",
+  ".htm",
+  ".xml",
+  ".csv",
+  ".js",
+  ".ts",
+  ".jsx",
+  ".tsx",
+  ".yml",
+  ".yaml",
 ]
 
 export function isSupportedFile(file: File): boolean {
-  const ext = '.' + file.name.split('.').pop()?.toLowerCase()
+  const ext = "." + file.name.split(".").pop()?.toLowerCase()
   return SUPPORTED_EXTENSIONS.includes(ext)
 }

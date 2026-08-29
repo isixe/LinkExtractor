@@ -8,10 +8,10 @@ function patternToRegex(pattern: string): RegExp {
   if (!trimmed) return /$^/ // never matches
 
   // Escape special regex chars except *
-  const escaped = trimmed.replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+  const escaped = trimmed.replace(/[.+?^${}()|[\]\\]/g, "\\$&")
   // Convert * to .*
-  const regexStr = escaped.replace(/\*/g, '.*')
-  return new RegExp(`^${regexStr}$`, 'i')
+  const regexStr = escaped.replace(/\*/g, ".*")
+  return new RegExp(`^${regexStr}$`, "i")
 }
 
 /**
@@ -43,11 +43,11 @@ export function isUrlBlacklisted(url: string, patterns: string[]): boolean {
 
 export function parseBlacklistText(text: string): string[] {
   return text
-    .split('\n')
+    .split("\n")
     .map((line) => line.trim())
     .filter(Boolean)
 }
 
 export function formatBlacklistText(patterns: string[]): string {
-  return patterns.join('\n')
+  return patterns.join("\n")
 }
