@@ -1,13 +1,13 @@
 interface LinkInfo {
   id: string
   url: string
-  status: 'pending' | 'checking' | 'success' | 'error' | 'timeout'
+  status: "pending" | "checking" | "success" | "error" | "timeout"
   statusCode?: number
   favicon?: string
   errorMessage?: string
 }
 
-type FilterType = 'all' | 'success' | 'error' | 'pending'
+type FilterType = "all" | "success" | "error" | "pending"
 
 interface CheckResult {
   success: boolean

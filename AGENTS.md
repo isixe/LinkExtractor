@@ -28,16 +28,16 @@ link-extractor/
 
 ## WHERE TO LOOK
 
-| Task | Location | Notes |
-|------|----------|-------|
-| Add/change UI component | `src/components/` | React + Tailwind |
-| Add icon | `src/assets/icons/` → `src/assets/icons/index.tsx` + `src/components/icons.tsx` | SVG as TSX |
-| Modify link extraction/validation | `src/lib/link-utils.ts` | Core logic |
-| Change translations | `src/locales/{en,zh}/common.json` | i18next |
-| Add type | `src/types/app.d.ts` | Global types |
-| Change CSS var/token | `src/styles/global.css` | Tailwind + design tokens |
-| Change page layout/SEO | `src/layouts/Layout.astro` | Astro component |
-| Change page entry | `src/pages/index.astro` | Astro page |
+| Task                              | Location                                                                        | Notes                    |
+| --------------------------------- | ------------------------------------------------------------------------------- | ------------------------ |
+| Add/change UI component           | `src/components/`                                                               | React + Tailwind         |
+| Add icon                          | `src/assets/icons/` → `src/assets/icons/index.tsx` + `src/components/icons.tsx` | SVG as TSX               |
+| Modify link extraction/validation | `src/lib/link-utils.ts`                                                         | Core logic               |
+| Change translations               | `src/locales/{en,zh}/common.json`                                               | i18next                  |
+| Add type                          | `src/types/app.d.ts`                                                            | Global types             |
+| Change CSS var/token              | `src/styles/global.css`                                                         | Tailwind + design tokens |
+| Change page layout/SEO            | `src/layouts/Layout.astro`                                                      | Astro component          |
+| Change page entry                 | `src/pages/index.astro`                                                         | Astro page               |
 
 ## CONVENTIONS
 
