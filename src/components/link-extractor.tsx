@@ -294,8 +294,8 @@ export function LinkExtractor() {
     setTimeout(() => {
       const el = document.getElementById("input-card")
       if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" })
-        setTimeout(() => window.scrollBy({ top: -30, behavior: "smooth" }), 50)
+        const y = el.getBoundingClientRect().top + window.scrollY - 30
+        window.scrollTo({ top: y, behavior: "smooth" })
       }
     }, 100)
   }, [])
