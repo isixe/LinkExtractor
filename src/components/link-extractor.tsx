@@ -292,7 +292,11 @@ export function LinkExtractor() {
     setNoLinksHint(false)
     setClearKey((k) => k + 1)
     setTimeout(() => {
-      document.getElementById("input-card")?.scrollIntoView({ behavior: "smooth", block: "start" })
+      const el = document.getElementById("input-card")
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 30
+        window.scrollTo({ top: y, behavior: "smooth" })
+      }
     }, 100)
   }, [])
 
